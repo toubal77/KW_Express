@@ -45,110 +45,108 @@ class _AuthScreenState extends State<AuthScreen> {
               ),
             ),
           ),
-          Container(
-            margin: const EdgeInsets.only(top: 400),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 90.0, right: 90.0),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  children: <Widget>[
-                    if (!_valid)
-                      TextFormField(
-                        key: ValueKey('NumberPhone'),
-                        autocorrect: false,
-                        textCapitalization: TextCapitalization.none,
-                        enableSuggestions: false,
-                        controller: _numController,
-                        decoration: new InputDecoration(
-                          hintText: "Enter your number",
-                          hintStyle: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                        style: TextStyle(
+          Padding(
+            padding: const EdgeInsets.only(left: 90.0, right: 90.0),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  if (!_valid)
+                    TextFormField(
+                      key: ValueKey('NumberPhone'),
+                      autocorrect: false,
+                      textCapitalization: TextCapitalization.none,
+                      enableSuggestions: false,
+                      controller: _numController,
+                      decoration: new InputDecoration(
+                        hintText: "Enter your number",
+                        hintStyle: TextStyle(
                           color: Colors.white,
                         ),
-                        textAlign: TextAlign.center,
-                        keyboardType: TextInputType.number,
-                        inputFormatters: <TextInputFormatter>[
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                        validator: (val) {
-                          if ((val!.trim().isEmpty &&
-                              val.trim().length == 10)) {
-                            return 'please enter a valid phone number';
-                          }
-                          return null;
-                        },
-                        onSaved: (val) {
-                          _numController.text = val!.trim();
-                        },
                       ),
-                    if (_valid)
-                      TextFormField(
-                        key: ValueKey('CodeConfirme'),
-                        autocorrect: false,
-                        textCapitalization: TextCapitalization.none,
-                        enableSuggestions: false,
-                        controller: _codeController,
-                        decoration: new InputDecoration(
-                          hintText: "Enter code",
-                          hintStyle: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                        textAlign: TextAlign.center,
-                        keyboardType: TextInputType.number,
-                        inputFormatters: <TextInputFormatter>[
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                        validator: (val) {
-                          if (val!.trim().isEmpty && val.trim().length == 6) {
-                            return 'please enter a valid code';
-                          }
-                          return null;
-                        },
-                        onSaved: (val) {
-                          _codeController.text = val!.trim();
-                        },
+                      style: TextStyle(
+                        color: Colors.white,
                       ),
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        setState(() {
-                          !_valid ? _valid = true : _submitForm();
-                        });
+                      textAlign: TextAlign.center,
+                      keyboardType: TextInputType.number,
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.digitsOnly
+                      ],
+                      validator: (val) {
+                        if ((val!.trim().isEmpty && val.trim().length == 10)) {
+                          return 'please enter a valid phone number';
+                        }
+                        return null;
                       },
-                      child: Container(
-                        width: 120,
-                        padding: const EdgeInsets.all(10.0),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.white,
-                            width: 3.0,
-                            style: BorderStyle.solid,
-                          ),
-                          borderRadius: BorderRadius.circular(25.0),
-                        ),
-                        child: Text(
-                          'suivant',
-                          style: TextStyle(
-                            fontSize: 18.0,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w400,
-                          ),
-                          textAlign: TextAlign.center,
+                      onSaved: (val) {
+                        _numController.text = val!.trim();
+                      },
+                    ),
+                  if (_valid)
+                    TextFormField(
+                      key: ValueKey('CodeConfirme'),
+                      autocorrect: false,
+                      textCapitalization: TextCapitalization.none,
+                      enableSuggestions: false,
+                      controller: _codeController,
+                      decoration: new InputDecoration(
+                        hintText: "Enter code",
+                        hintStyle: TextStyle(
+                          color: Colors.white,
                         ),
                       ),
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                      textAlign: TextAlign.center,
+                      keyboardType: TextInputType.number,
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.digitsOnly
+                      ],
+                      validator: (val) {
+                        if (val!.trim().isEmpty && val.trim().length == 6) {
+                          return 'please enter a valid code';
+                        }
+                        return null;
+                      },
+                      onSaved: (val) {
+                        _codeController.text = val!.trim();
+                      },
                     ),
-                  ],
-                ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      setState(() {
+                        !_valid ? _valid = true : _submitForm();
+                      });
+                    },
+                    child: Container(
+                      width: 120,
+                      padding: const EdgeInsets.all(10.0),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.white,
+                          width: 3.0,
+                          style: BorderStyle.solid,
+                        ),
+                        borderRadius: BorderRadius.circular(25.0),
+                      ),
+                      child: Text(
+                        'suivant',
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w400,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
