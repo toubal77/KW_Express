@@ -6,23 +6,24 @@ class TextFieldSearch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 70,
-      padding: const EdgeInsets.all(10.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(
-          15.0,
-        ),
-      ),
+      height: 60,
+      padding: EdgeInsets.only(top: 16, left: 16, right: 16),
       child: TextField(
         textAlign: TextAlign.center,
         decoration: InputDecoration(
+          hintText: "Search...",
+          hintStyle: TextStyle(color: Colors.grey),
           prefixIcon: Icon(
             Icons.search,
-            color: Colors.grey,
+            color: Colors.grey.shade600,
+            size: 20,
           ),
-          hintText: 'Chercher un restaurant',
-          hintStyle: TextStyle(
-            color: Colors.grey,
+          filled: true,
+          fillColor: Colors.grey.shade300,
+          contentPadding: EdgeInsets.all(8),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(color: Colors.grey.shade300),
           ),
         ),
       ),
