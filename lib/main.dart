@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kw_express/screens/authScreen.dart';
+import 'package:kw_express/authScreen.dart';
 
 void main() {
   runApp(MyApp());

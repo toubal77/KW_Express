@@ -1,7 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:kw_express/screens/homePage.dart';
+import 'package:kw_express/home_widget.dart';
 
 class AuthScreen extends StatefulWidget {
   @override
@@ -59,7 +58,7 @@ class _AuthScreenState extends State<AuthScreen> {
         // );
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => HomePage()),
+          MaterialPageRoute(builder: (context) => HomeWidget()),
         );
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
