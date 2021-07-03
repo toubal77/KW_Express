@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "412091017569",
+    "project_id": "kwexpress-18185",
+    "storage_bucket": "kwexpress-18185.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:412091017569:android:81c3175b16ec95cfc93d20",
+        "android_client_info": {
+          "package_name": "com.example.kw_express"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "412091017569-favm64levvm7lik99dhrkdpa280fnn83.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHIRYT2yRghE596XnSK-Ox9Flc2h5FjdE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "412091017569-favm64levvm7lik99dhrkdpa280fnn83.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

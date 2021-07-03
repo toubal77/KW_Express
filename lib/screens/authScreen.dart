@@ -8,6 +8,11 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
+  List<String> listKW = [
+    'Commander vos repas maintenants',
+    'Meilleur Livraison en Algerie',
+    'Satisfactions garantie',
+  ];
   final _formKey = GlobalKey<FormState>();
   TextEditingController _numController = new TextEditingController();
   TextEditingController _codeController = new TextEditingController();
