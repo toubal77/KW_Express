@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kw_express/widgets/carouselHome.dart';
+import 'package:kw_express/widgets/textFieldSearch.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -8,6 +9,7 @@ class HomePage extends StatelessWidget {
       body: Column(
         children: <Widget>[
           CarouselHome(),
+          TextFieldSearch(),
         ],
       ),
     );
