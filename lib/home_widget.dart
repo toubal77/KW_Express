@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kw_express/helper/icons_app.dart';
 import 'package:kw_express/screens/homePage.dart';
 
 class HomeWidget extends StatefulWidget {
@@ -26,33 +27,35 @@ class _HomeWidgetState extends State<HomeWidget> {
     return Scaffold(
       body: widgetsOptions.elementAt(selectIndex),
       bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colors.blueGrey,
+        selectedItemColor: Colors.red,
         unselectedItemColor: Colors.grey,
-        showSelectedLabels: true,
+        showSelectedLabels: false,
         showUnselectedLabels: false,
         elevation: 0,
         onTap: onTapBottomNavigation,
         currentIndex: selectIndex,
         items: [
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.takeout_dining_outlined,
-            ),
+            icon: Icon(IconsApp.home),
+            label: 'home',
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.favorite_sharp,
+              IconsApp.favorite,
             ),
+            label: 'favorites',
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.local_offer_outlined,
+              IconsApp.effres,
             ),
+            label: 'effres',
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.support_agent_outlined,
+              IconsApp.espace_client,
             ),
+            label: 'espace client',
           ),
         ],
       ),
