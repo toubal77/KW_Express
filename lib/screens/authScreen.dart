@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kw_express/screens/homePage.dart';
@@ -17,18 +18,57 @@ class _AuthScreenState extends State<AuthScreen> {
   TextEditingController _numController = new TextEditingController();
   TextEditingController _codeController = new TextEditingController();
   bool _valid = false;
-  _submitForm() {
+  // ignore: unused_field
+  late String _verificationCode;
+
+  _submitForm() async {
     _formKey.currentState!.save();
     FocusScope.of(context).unfocus();
     if (!_formKey.currentState!.validate()) {
       return;
     } else {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => HomePage(),
-        ),
-      );
+      try {
+        // await FirebaseAuth.instance.verifyPhoneNumber(
+        //   phoneNumber: '+213${_numController.text.trim()}',
+        //   verificationCompleted: (PhoneAuthCredential credential) async {
+        //     await FirebaseAuth.instance
+        //         .signInWithCredential(credential)
+        //         .then((value) async {
+        //       if (value.user != null) {
+        //         Navigator.pushReplacement(
+        //           context,
+        //           MaterialPageRoute(builder: (context) => HomePage()),
+        //         );
+        //       }
+        //     });
+        //   },
+        //   verificationFailed: (FirebaseAuthException e) {
+        //     print(e.message);
+        //   },
+        //   codeSent: (String verficationID, int? resendToken) {
+        //     setState(() {
+        //       _verificationCode = verficationID;
+        //     });
+        //   },
+        //   codeAutoRetrievalTimeout: (String verificationID) {
+        //     setState(() {
+        //       _verificationCode = verificationID;
+        //     });
+        //   },
+        //   timeout: Duration(seconds: 60),
+        // );
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => HomePage()),
+        );
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+                "Failed to Verify Phone Number: +213${_numController.text.trim()}"),
+          ),
+        );
+      }
     }
   }
 
