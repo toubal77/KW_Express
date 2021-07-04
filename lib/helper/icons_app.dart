@@ -13,4 +13,8 @@ class IconsApp {
       IconData(0xE810, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData espace_client =
       IconData(0xE805, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData notFavorite =
+      IconData(0xE80B, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData isFavorite =
+      IconData(0xE80A, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }
