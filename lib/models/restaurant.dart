@@ -1,8 +1,8 @@
 class Restaurant {
   // ignore: non_constant_identifier_names
-  String? id_resto;
+  var id_resto;
   // ignore: non_constant_identifier_names
-  String? nom_resto;
+  var nom_resto;
   String? map;
   String? adress;
   String? wilaya;
@@ -10,7 +10,7 @@ class Restaurant {
   // ignore: non_constant_identifier_names
   var img_cover;
   // ignore: non_constant_identifier_names
-  String? img_profile;
+  var img_profile;
   String? service;
   // ignore: non_constant_identifier_names
   String? num_tel;
@@ -33,16 +33,16 @@ class Restaurant {
   });
   factory Restaurant.fromJson(Map<String, dynamic> json) {
     return Restaurant(
-      id_resto: json['id_resto'],
-      nom_resto: json['nom_resto'],
-      map: json['map'],
-      adress: json['adress'],
-      wilaya: json['wilaya'],
-      dure: json['dure'],
-      img_cover: json['img_cover'],
-      img_profile: json['img_profile'],
-      service: json['service'],
-      num_tel: json['num_tel'],
+      id_resto: json['id_resto'].toString(),
+      nom_resto: json['nom_resto'].toString(),
+      map: json['map'].toString(),
+      adress: json['adress'].toString(),
+      wilaya: json['wilaya'].toString(),
+      dure: json['dure'].toString(),
+      img_cover: json['img_cover'].toString(),
+      img_profile: json['img_profile'].toString(),
+      service: json['service'].toString(),
+      num_tel: json['num_tel'].toString(),
     );
   }
 }

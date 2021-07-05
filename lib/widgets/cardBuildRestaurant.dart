@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kw_express/helper/icons_app.dart';
+import 'package:kw_express/models/restaurant.dart';
 
 class CardBuildRestaurant extends StatefulWidget {
+  Restaurant? res;
+  CardBuildRestaurant(this.res);
   @override
   _CardBuildRestaurantState createState() => _CardBuildRestaurantState();
 }
@@ -13,7 +17,8 @@ class _CardBuildRestaurantState extends State<CardBuildRestaurant> {
     return Stack(
       children: [
         Container(
-          margin: EdgeInsets.all(10.0),
+          margin:
+              EdgeInsets.only(top: 7.0, left: 10.0, right: 10.0, bottom: 10.0),
           height: 260,
           decoration: BoxDecoration(
             color: Colors.white,
@@ -29,12 +34,26 @@ class _CardBuildRestaurantState extends State<CardBuildRestaurant> {
             children: [
               Expanded(
                 child: Container(
+                  width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage("assets/drawable_png/bg.png"),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+                      // image: DecorationImage(
+                      //   image: NetworkImage('${widget.res!.img_cover}'),
+                      //   fit: BoxFit.cover,
+                      // ),
+                      ),
+                  child: widget.res!.img_cover
+                              .contains('scontent.forn2-1.fna.fbcdn.net') ||
+                          widget.res!.img_cover
+                              .contains('scontent-mrs2-1.xx.fbcdn.net') ||
+                          widget.res!.img_cover
+                              .contains('scontent-mrs2-2.xx.fbcdn.net') ||
+                          widget.res!.img_cover
+                              .contains('scontent-pmo1-1.xx.fbcdn.net')
+                      ? SvgPicture.asset('assets/drawable/resto_building.svg')
+                      : Image.network(
+                          '${widget.res!.img_cover.toString()}',
+                          fit: BoxFit.cover,
+                        ),
                 ),
               ),
               Expanded(
@@ -45,33 +64,19 @@ class _CardBuildRestaurantState extends State<CardBuildRestaurant> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'toubal',
+                        '${widget.res!.nom_resto}',
                         style: TextStyle(
                           fontWeight: FontWeight.w800,
                           fontSize: 18.0,
                         ),
                       ),
                       Text(
-                        'Akid Lotfi Oran',
+                        '${widget.res!.adress}',
                         style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 15.0,
                           color: Colors.grey,
                         ),
-                      ),
-                      SizedBox(
-                        height: 12,
-                      ),
-                      Text(
-                        '11h-20h',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 15.0,
-                          color: Colors.grey,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
                       ),
                     ],
                   ),
@@ -88,13 +93,26 @@ class _CardBuildRestaurantState extends State<CardBuildRestaurant> {
             height: 85,
             decoration: BoxDecoration(
               color: Colors.deepPurple,
-              image: DecorationImage(
-                image: AssetImage("assets/drawable_png/white-logo.png"),
-                fit: BoxFit.cover,
-              ),
+              // image: DecorationImage(
+              //   image: NetworkImage('${widget.res!.img_profile}'),
+              //   fit: BoxFit.cover,
+              // ),
               border: Border.all(color: Colors.white, width: 5.0),
               borderRadius: BorderRadius.circular(50),
             ),
+            child: widget.res!.img_profile
+                        .contains('scontent.forn2-1.fna.fbcdn.net') ||
+                    widget.res!.img_profile
+                        .contains('scontent-mrs2-1.xx.fbcdn.net') ||
+                    widget.res!.img_profile
+                        .contains('scontent-mrs2-2.xx.fbcdn.net') ||
+                    widget.res!.img_profile
+                        .contains('scontent-pmo1-1.xx.fbcdn.net')
+                ? SvgPicture.asset('assets/drawable/resto_profile.svg')
+                : Image.network(
+                    '${widget.res!.img_profile.toString()}',
+                    fit: BoxFit.cover,
+                  ),
           ),
         ),
         Positioned(
@@ -114,7 +132,7 @@ class _CardBuildRestaurantState extends State<CardBuildRestaurant> {
             ),
             child: Center(
               child: Text(
-                '40-50min',
+                '${widget.res!.dure}',
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 14.0,
