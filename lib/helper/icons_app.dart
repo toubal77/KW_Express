@@ -17,4 +17,12 @@ class IconsApp {
       IconData(0xE80B, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData isFavorite =
       IconData(0xE80A, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData share =
+      IconData(0xE801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData serviceClient =
+      IconData(0xE808, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData questions =
+      IconData(0xE809, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData noteApp =
+      IconData(0xE80F, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }
