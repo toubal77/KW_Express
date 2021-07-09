@@ -25,4 +25,14 @@ class IconsApp {
       IconData(0xE809, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData noteApp =
       IconData(0xE80F, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData contact =
+      IconData(0xE803, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData resto =
+      IconData(0xE80C, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData bug =
+      IconData(0xE804, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData recla =
+      IconData(0xE812, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData sugg =
+      IconData(0xE802, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }
