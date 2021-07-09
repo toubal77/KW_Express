@@ -44,14 +44,7 @@ class EspaceClient extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) {
-                            return ServiceClient();
-                          }),
-                        );
-                      },
+                      onTap: () {},
                       child: Row(
                         children: [
                           Icon(
@@ -94,7 +87,14 @@ class EspaceClient extends StatelessWidget {
                       height: 30,
                     ),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) {
+                            return ServiceClient();
+                          }),
+                        );
+                      },
                       child: Row(
                         children: [
                           Icon(
