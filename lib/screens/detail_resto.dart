@@ -321,7 +321,12 @@ class _DetailRestoState extends State<DetailResto> {
                       widget.resDet!.img_profile
                           .contains('scontent-pmo1-1.xx.fbcdn.net')
                   ? SvgPicture.asset('assets/drawable/resto_profile.svg')
-                  : Image.network(widget.resDet!.img_profile.toString()),
+                  : ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child: Image.network(
+                        widget.resDet!.img_profile.toString(),
+                      ),
+                    ),
             ),
           ),
         ],

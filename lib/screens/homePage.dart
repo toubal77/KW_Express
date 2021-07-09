@@ -5,7 +5,18 @@ import 'package:kw_express/widgets/cardBuildRestaurant.dart';
 import 'package:kw_express/widgets/carouselHome.dart';
 import 'package:kw_express/widgets/textFieldSearch.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    DatabaseMethodes().fetechdetailResto();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

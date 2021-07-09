@@ -104,7 +104,6 @@ class _CardBuildRestaurantState extends State<CardBuildRestaurant> {
               width: 85,
               height: 85,
               decoration: BoxDecoration(
-                color: Colors.deepPurple,
                 // image: DecorationImage(
                 //   image: NetworkImage('${widget.res!.img_profile}'),
                 //   fit: BoxFit.cover,
@@ -120,10 +119,17 @@ class _CardBuildRestaurantState extends State<CardBuildRestaurant> {
                           .contains('scontent-mrs2-2.xx.fbcdn.net') ||
                       widget.res!.img_profile
                           .contains('scontent-pmo1-1.xx.fbcdn.net')
-                  ? SvgPicture.asset('assets/drawable/resto_profile.svg')
-                  : Image.network(
-                      '${widget.res!.img_profile.toString()}',
-                      fit: BoxFit.cover,
+                  ? ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child:
+                          SvgPicture.asset('assets/drawable/resto_profile.svg'),
+                    )
+                  : ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child: Image.network(
+                        '${widget.res!.img_profile.toString()}',
+                        fit: BoxFit.cover,
+                      ),
                     ),
             ),
           ),
