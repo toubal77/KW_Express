@@ -7,6 +7,7 @@ class EspaceClient extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: Text(
           'Espace Client',
           style: TextStyle(
@@ -19,47 +20,99 @@ class EspaceClient extends StatelessWidget {
         elevation: 6.0,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(4.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Card(
-              elevation: 2,
-              child: Column(
-                children: [
-                  TextButton.icon(
-                    onPressed: () {},
-                    icon: Icon(
-                      IconsApp.share,
-                      color: Colors.red,
-                    ),
-                    label: Text('inviter vos amis'),
-                  ),
-                  TextButton.icon(
-                    onPressed: () {},
-                    icon: Icon(
-                      IconsApp.serviceClient,
-                      color: Colors.red,
-                    ),
-                    label: Text('Service Client'),
-                  ),
-                  TextButton.icon(
-                    onPressed: () {},
-                    icon: Icon(
-                      IconsApp.questions,
-                      color: Colors.red,
-                    ),
-                    label: Text('Questions Frequentes'),
-                  ),
-                  TextButton.icon(
-                    onPressed: () {},
-                    icon: Icon(
-                      IconsApp.questions,
-                      color: Colors.red,
-                    ),
-                    label: Text('Noter L\'application'),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey,
+                    blurRadius: 0.5,
+                    offset: Offset(0.5, 0.5),
                   ),
                 ],
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    GestureDetector(
+                      onTap: () {},
+                      child: Row(
+                        children: [
+                          Icon(
+                            IconsApp.share,
+                            color: Colors.red,
+                          ),
+                          SizedBox(
+                            width: 25,
+                          ),
+                          Text('inviter vos amis'),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    GestureDetector(
+                      onTap: () {},
+                      child: Row(
+                        children: [
+                          Icon(
+                            IconsApp.serviceClient,
+                            color: Colors.red,
+                          ),
+                          SizedBox(
+                            width: 25,
+                          ),
+                          Text('Service Client'),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    GestureDetector(
+                      onTap: () {},
+                      child: Row(
+                        children: [
+                          Icon(
+                            IconsApp.questions,
+                            color: Colors.red,
+                          ),
+                          SizedBox(
+                            width: 25,
+                          ),
+                          Text('Questions Frequentes'),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    GestureDetector(
+                      onTap: () {},
+                      child: Row(
+                        children: [
+                          Icon(
+                            IconsApp.noteApp,
+                            color: Colors.red,
+                          ),
+                          SizedBox(
+                            width: 25,
+                          ),
+                          Text('Noter L\'application'),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             Center(
@@ -68,12 +121,17 @@ class EspaceClient extends StatelessWidget {
                   Text(
                     'powerdBy',
                     style: TextStyle(
-                      fontSize: 13,
+                      fontSize: 15,
                       fontWeight: FontWeight.w300,
                       fontFamily: 'CedarvilleCursive-Regular',
+                      color: Colors.red,
                     ),
                   ),
-                  SvgPicture.asset('assets/drawable/kw.svg'),
+                  Container(
+                    width: 100,
+                    height: 100,
+                    child: SvgPicture.asset('assets/drawable/kw.svg'),
+                  ),
                 ],
               ),
             ),

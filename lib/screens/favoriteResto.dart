@@ -5,6 +5,7 @@ class FavoriteResto extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: Text(
           'Mes Restaurants Favoris',
           style: TextStyle(
