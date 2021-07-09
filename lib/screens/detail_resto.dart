@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kw_express/home_widget.dart';
+import 'package:kw_express/models/detailRestaurant.dart';
 import 'package:kw_express/models/restaurant.dart';
+import 'package:kw_express/services/databases.dart';
 
+// ignore: must_be_immutable
 class DetailResto extends StatefulWidget {
   Restaurant? resDet;
   DetailResto(this.resDet);
@@ -75,73 +78,37 @@ class _DetailRestoState extends State<DetailResto> {
                     SizedBox(
                       height: 13,
                     ),
-                    DefaultTabController(
-                      length: 3,
-                      child: TabBar(
-                        isScrollable: true,
-                        indicatorColor: Colors.red,
-                        indicatorWeight: 2.0,
-                        onTap: (index) {
-                          setState(() {
-                            switch (index) {
-                              case 0:
-                                color = Color(0xffff5722);
-                                break;
-                              case 1:
-                                color = Color(0xff3f51b5);
-                                break;
-                              case 2:
-                                color = Color(0xffe91e63);
-                                break;
-                              case 3:
-                                color = Color(0xff9c27b0);
-                                break;
-                              case 4:
-                                color = Color(0xff2196f3);
-                                break;
-                              default:
-                            }
-                          });
-                        },
-                        tabs: <Widget>[
-                          Tab(
-                            child: Container(
-                              child: Text(
-                                'GAMES',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 15.0,
-                                  fontWeight: FontWeight.w800,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Tab(
-                            child: Container(
-                              child: Text(
-                                'GAMES',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 15.0,
-                                  fontWeight: FontWeight.w800,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Tab(
-                            child: Container(
-                              child: Text(
-                                'GAMES',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 15.0,
-                                  fontWeight: FontWeight.w800,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+                    FutureBuilder<List<DetailRestaurant?>?>(
+                      future: DatabaseMethodes().fetechdetailResto(
+                        widget.resDet!.id_resto,
                       ),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData)
+                          return DefaultTabController(
+                            length: snapshot.data!.length,
+                            child: TabBar(
+                              isScrollable: true,
+                              indicatorColor: Colors.red,
+                              indicatorWeight: 2.0,
+                              tabs: <Widget>[
+                                for (int i = 0; i < snapshot.data!.length; i++)
+                                  Tab(
+                                    child: Container(
+                                      child: Text(
+                                        snapshot.data![i]!.nom_spec,
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 15.0,
+                                          fontWeight: FontWeight.w800,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                              ],
+                            ),
+                          );
+                        return CircularProgressIndicator();
+                      },
                     ),
                   ],
                 ),

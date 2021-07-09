@@ -1,6 +1,6 @@
 class Restaurant {
   // ignore: non_constant_identifier_names
-  var id_resto;
+  String id_resto;
   // ignore: non_constant_identifier_names
   var nom_resto;
   String? map;

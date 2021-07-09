@@ -4,6 +4,7 @@ import 'package:kw_express/helper/icons_app.dart';
 import 'package:kw_express/models/restaurant.dart';
 import 'package:kw_express/screens/detail_resto.dart';
 
+// ignore: must_be_immutable
 class CardBuildRestaurant extends StatefulWidget {
   Restaurant? res;
   CardBuildRestaurant(this.res);
