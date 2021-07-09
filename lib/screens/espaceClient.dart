@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kw_express/helper/icons_app.dart';
+import 'package:kw_express/screens/serviceClient.dart';
 
 class EspaceClient extends StatelessWidget {
   @override
@@ -43,7 +44,14 @@ class EspaceClient extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) {
+                            return ServiceClient();
+                          }),
+                        );
+                      },
                       child: Row(
                         children: [
                           Icon(
@@ -61,7 +69,14 @@ class EspaceClient extends StatelessWidget {
                       height: 30,
                     ),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) {
+                            return ServiceClient();
+                          }),
+                        );
+                      },
                       child: Row(
                         children: [
                           Icon(
