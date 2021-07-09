@@ -35,4 +35,6 @@ class IconsApp {
       IconData(0xE812, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData sugg =
       IconData(0xE802, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData floatButton =
+      IconData(0xE811, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

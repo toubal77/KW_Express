@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kw_express/helper/icons_app.dart';
 import 'package:kw_express/home_widget.dart';
 import 'package:kw_express/models/detailRestaurant.dart';
 import 'package:kw_express/models/restaurant.dart';
@@ -302,6 +303,13 @@ class _DetailRestoState extends State<DetailResto> {
                   ),
           ),
         ],
+      ),
+      floatingActionButton: new FloatingActionButton(
+        onPressed: () {},
+        tooltip: 'Increment',
+        child: new Icon(
+          IconsApp.floatButton,
+        ),
       ),
     );
   }
