@@ -32,9 +32,10 @@ class _CardBuildRestaurantState extends State<CardBuildRestaurant> {
           Container(
             margin: EdgeInsets.only(
                 top: 7.0, left: 10.0, right: 10.0, bottom: 10.0),
-            height: 260,
+            height: 310,
             decoration: BoxDecoration(
               color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
               boxShadow: [
                 BoxShadow(
                   color: Colors.grey,
@@ -48,12 +49,6 @@ class _CardBuildRestaurantState extends State<CardBuildRestaurant> {
                 Expanded(
                   child: Container(
                     width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                        // image: DecorationImage(
-                        //   image: NetworkImage('${widget.res!.img_cover}'),
-                        //   fit: BoxFit.cover,
-                        // ),
-                        ),
                     child: widget.res!.img_cover
                                 .contains('scontent.forn2-1.fna.fbcdn.net') ||
                             widget.res!.img_cover
@@ -72,70 +67,80 @@ class _CardBuildRestaurantState extends State<CardBuildRestaurant> {
                 Expanded(
                   child: Container(
                     color: Colors.white,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '${widget.res!.nom_resto}',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w800,
-                            fontSize: 18.0,
-                          ),
-                        ),
-                        Text(
-                          '${widget.res!.adress}',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 15.0,
-                            color: Colors.grey,
-                          ),
-                        ),
-                      ],
-                    ),
                   ),
                 ),
               ],
             ),
           ),
           Positioned(
-            top: 100,
+            bottom: 30,
             left: 30,
             child: Container(
-              width: 85,
-              height: 85,
               decoration: BoxDecoration(
-                // image: DecorationImage(
-                //   image: NetworkImage('${widget.res!.img_profile}'),
-                //   fit: BoxFit.cover,
-                // ),
-                border: Border.all(color: Colors.white, width: 5.0),
-                borderRadius: BorderRadius.circular(50),
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(10),
+                  bottomRight: Radius.circular(10),
+                ),
               ),
-              child: widget.res!.img_profile
-                          .contains('scontent.forn2-1.fna.fbcdn.net') ||
-                      widget.res!.img_profile
-                          .contains('scontent-mrs2-1.xx.fbcdn.net') ||
-                      widget.res!.img_profile
-                          .contains('scontent-mrs2-2.xx.fbcdn.net') ||
-                      widget.res!.img_profile
-                          .contains('scontent-pmo1-1.xx.fbcdn.net')
-                  ? ClipRRect(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '${widget.res!.nom_resto}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w800,
+                      fontSize: 18.0,
+                    ),
+                  ),
+                  Text(
+                    '${widget.res!.adress}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 15.0,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Positioned(
+            top: 120,
+            left: 30,
+            child: widget.res!.img_profile
+                        .contains('scontent.forn2-1.fna.fbcdn.net') ||
+                    widget.res!.img_profile
+                        .contains('scontent-mrs2-1.xx.fbcdn.net') ||
+                    widget.res!.img_profile
+                        .contains('scontent-mrs2-2.xx.fbcdn.net') ||
+                    widget.res!.img_profile
+                        .contains('scontent-pmo1-1.xx.fbcdn.net')
+                ? Container(
+                    width: 85,
+                    height: 85,
+                    child:
+                        SvgPicture.asset('assets/drawable/resto_profile.svg'),
+                  )
+                : Container(
+                    width: 85,
+                    height: 85,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.white, width: 5.0),
                       borderRadius: BorderRadius.circular(50),
-                      child:
-                          SvgPicture.asset('assets/drawable/resto_profile.svg'),
-                    )
-                  : ClipRRect(
+                    ),
+                    child: ClipRRect(
                       borderRadius: BorderRadius.circular(50),
                       child: Image.network(
                         '${widget.res!.img_profile.toString()}',
                         fit: BoxFit.cover,
                       ),
                     ),
-            ),
+                  ),
           ),
           Positioned(
-            top: 120,
+            top: 140,
             right: 20,
             child: Container(
               decoration: BoxDecoration(
@@ -163,7 +168,7 @@ class _CardBuildRestaurantState extends State<CardBuildRestaurant> {
             ),
           ),
           Positioned(
-            bottom: 35,
+            bottom: 55,
             right: 40,
             child: GestureDetector(
               onTap: () {

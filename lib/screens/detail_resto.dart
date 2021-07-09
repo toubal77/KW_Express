@@ -271,30 +271,35 @@ class _DetailRestoState extends State<DetailResto> {
           Positioned(
             top: 110,
             left: 25,
-            child: Container(
-              width: 90,
-              height: 90,
-              decoration: BoxDecoration(
-                color: Colors.amber,
-                border: Border.all(color: Colors.white, width: 5.0),
-                borderRadius: BorderRadius.circular(50),
-              ),
-              child: widget.resDet!.img_profile
-                          .contains('scontent.forn2-1.fna.fbcdn.net') ||
-                      widget.resDet!.img_profile
-                          .contains('scontent-mrs2-1.xx.fbcdn.net') ||
-                      widget.resDet!.img_profile
-                          .contains('scontent-mrs2-2.xx.fbcdn.net') ||
-                      widget.resDet!.img_profile
-                          .contains('scontent-pmo1-1.xx.fbcdn.net')
-                  ? SvgPicture.asset('assets/drawable/resto_profile.svg')
-                  : ClipRRect(
+            child: widget.resDet!.img_profile
+                        .contains('scontent.forn2-1.fna.fbcdn.net') ||
+                    widget.resDet!.img_profile
+                        .contains('scontent-mrs2-1.xx.fbcdn.net') ||
+                    widget.resDet!.img_profile
+                        .contains('scontent-mrs2-2.xx.fbcdn.net') ||
+                    widget.resDet!.img_profile
+                        .contains('scontent-pmo1-1.xx.fbcdn.net')
+                ? Container(
+                    width: 90,
+                    height: 90,
+                    child:
+                        SvgPicture.asset('assets/drawable/resto_profile.svg'),
+                  )
+                : Container(
+                    width: 90,
+                    height: 90,
+                    decoration: BoxDecoration(
+                      color: Colors.amber,
+                      border: Border.all(color: Colors.white, width: 5.0),
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    child: ClipRRect(
                       borderRadius: BorderRadius.circular(50),
                       child: Image.network(
                         widget.resDet!.img_profile.toString(),
                       ),
                     ),
-            ),
+                  ),
           ),
         ],
       ),
