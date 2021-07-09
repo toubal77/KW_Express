@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class FavoriteResto extends StatelessWidget {
+class OffreResto extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Mes Restaurants Favoris',
+          'Offres Restaurants',
           style: TextStyle(
             color: Colors.grey,
             fontSize: 16,
