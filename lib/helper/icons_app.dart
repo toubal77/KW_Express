@@ -37,4 +37,10 @@ class IconsApp {
       IconData(0xE802, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData floatButton =
       IconData(0xE811, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData trouve =
+      IconData(0xE80E, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData reserver =
+      IconData(0xE813, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData commande =
+      IconData(0xE807, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }
