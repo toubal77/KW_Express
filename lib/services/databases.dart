@@ -24,6 +24,7 @@ class DatabaseMethodes {
         print('Response status: ${response.statusCode}');
       }
     } catch (e) {
+      print('field to try get restaurant');
       print(e.toString());
     }
   }
@@ -51,6 +52,38 @@ class DatabaseMethodes {
         print('Response status: ${response.statusCode}');
       }
     } catch (e) {
+      print('field to try restaurantDetail');
+      print(e.toString());
+    }
+  }
+
+  Future<List<DetailRestaurant?>?> fetechdetailRestoMenu(
+      String idResto, String idSpeciality) async {
+    try {
+      List<DetailRestaurant?> list = [];
+      var url = Uri.parse(ApiApp.menu);
+      var response = await http.post(url, body: {
+        'Resto': idResto,
+        'Speciality': idSpeciality,
+      });
+
+      if (response.statusCode == 200) {
+        print('seccus fetch data restaurantDetailMenu');
+
+        var data = json.decode(response.body);
+        var rest = data["data"] as List;
+
+        list = rest
+            .map<DetailRestaurant>((json) => DetailRestaurant.fromJson(json))
+            .toList();
+
+        return list;
+      } else {
+        print('field fetch data restaurantDetailMenu');
+        print('Response status: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('field to try restaurantDetailMenu');
       print(e.toString());
     }
   }

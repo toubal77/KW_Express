@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kw_express/helper/icons_app.dart';
 import 'package:kw_express/home_widget.dart';
 import 'package:kw_express/models/detailRestaurant.dart';
 import 'package:kw_express/models/restaurant.dart';
 import 'package:kw_express/services/databases.dart';
-// ignore: import_of_legacy_library_into_null_safe
-import 'package:unicorndial/unicorndial.dart';
 
 // ignore: must_be_immutable
 class DetailResto extends StatefulWidget {
@@ -307,41 +304,41 @@ class _DetailRestoState extends State<DetailResto> {
           ),
         ],
       ),
-      floatingActionButton: UnicornDialer(
-        backgroundColor: Color.fromRGBO(255, 255, 255, 0.6),
-        parentButtonBackground: Colors.redAccent,
-        orientation: UnicornOrientation.VERTICAL,
-        parentButton: Icon(IconsApp.floatButton),
-        childButtons: [
-          UnicornButton(
-            currentButton: FloatingActionButton(
-              heroTag: "Trouve",
-              backgroundColor: Colors.red,
-              mini: true,
-              onPressed: () {},
-              child: Icon(IconsApp.trouve),
-            ),
-          ),
-          UnicornButton(
-            currentButton: FloatingActionButton(
-              heroTag: "Reserver",
-              backgroundColor: Colors.red,
-              mini: true,
-              onPressed: () {},
-              child: Icon(IconsApp.reserver),
-            ),
-          ),
-          UnicornButton(
-            currentButton: FloatingActionButton(
-              heroTag: "Commander",
-              backgroundColor: Colors.red,
-              mini: true,
-              onPressed: () {},
-              child: Icon(IconsApp.commande),
-            ),
-          ),
-        ],
-      ),
+      // floatingActionButton: UnicornDialer(
+      //   backgroundColor: Color.fromRGBO(255, 255, 255, 0.6),
+      //   parentButtonBackground: Colors.redAccent,
+      //   orientation: UnicornOrientation.VERTICAL,
+      //   parentButton: Icon(IconsApp.floatButton),
+      //   childButtons: [
+      //     UnicornButton(
+      //       currentButton: FloatingActionButton(
+      //         heroTag: "Trouve",
+      //         backgroundColor: Colors.red,
+      //         mini: true,
+      //         onPressed: () {},
+      //         child: Icon(IconsApp.trouve),
+      //       ),
+      //     ),
+      //     UnicornButton(
+      //       currentButton: FloatingActionButton(
+      //         heroTag: "Reserver",
+      //         backgroundColor: Colors.red,
+      //         mini: true,
+      //         onPressed: () {},
+      //         child: Icon(IconsApp.reserver),
+      //       ),
+      //     ),
+      //     UnicornButton(
+      //       currentButton: FloatingActionButton(
+      //         heroTag: "Commander",
+      //         backgroundColor: Colors.red,
+      //         mini: true,
+      //         onPressed: () {},
+      //         child: Icon(IconsApp.commande),
+      //       ),
+      //     ),
+      //   ],
+      // ),
     );
   }
 }
