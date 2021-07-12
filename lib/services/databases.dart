@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:kw_express/helper/api_app.dart';
 import 'package:kw_express/models/detailRestaurant.dart';
+import 'package:kw_express/models/detailRestoMenu.dart';
 import 'package:kw_express/models/restaurant.dart';
 
 class DatabaseMethodes {
@@ -57,10 +58,10 @@ class DatabaseMethodes {
     }
   }
 
-  Future<List<DetailRestaurant?>?> fetechdetailRestoMenu(
+  Future<List<DetailRestoMenu?>?> fetechdetailRestoMenu(
       String idResto, String idSpeciality) async {
     try {
-      List<DetailRestaurant?> list = [];
+      List<DetailRestoMenu?> list = [];
       var url = Uri.parse(ApiApp.menu);
       var response = await http.post(url, body: {
         'Resto': idResto,
@@ -74,7 +75,7 @@ class DatabaseMethodes {
         var rest = data["data"] as List;
 
         list = rest
-            .map<DetailRestaurant>((json) => DetailRestaurant.fromJson(json))
+            .map<DetailRestoMenu>((json) => DetailRestoMenu.fromJson(json))
             .toList();
 
         return list;

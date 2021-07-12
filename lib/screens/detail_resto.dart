@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kw_express/home_widget.dart';
 import 'package:kw_express/models/detailRestaurant.dart';
+import 'package:kw_express/models/detailRestoMenu.dart';
 import 'package:kw_express/models/restaurant.dart';
 import 'package:kw_express/services/databases.dart';
 
@@ -84,7 +85,7 @@ class _DetailRestoState extends State<DetailResto> {
                         widget.resDet!.id_resto,
                       ),
                       builder: (context, snapshot) {
-                        if (snapshot.hasData)
+                        if (snapshot.hasData) {
                           return DefaultTabController(
                             length: snapshot.data!.length,
                             child: TabBar(
@@ -108,6 +109,7 @@ class _DetailRestoState extends State<DetailResto> {
                               ],
                             ),
                           );
+                        }
                         return CircularProgressIndicator();
                       },
                     ),
@@ -115,156 +117,67 @@ class _DetailRestoState extends State<DetailResto> {
                 ),
               ),
               Expanded(
-                child: ListView(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      margin: const EdgeInsets.all(10),
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey,
-                            blurRadius: 2,
-                            offset: Offset(0, 2),
-                          ),
-                        ],
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Pizza',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w800,
-                              fontSize: 15,
+                child: FutureBuilder<List<DetailRestoMenu?>?>(
+                  future: DatabaseMethodes()
+                      .fetechdetailRestoMenu(widget.resDet!.id_resto, '1'),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData)
+                      return ListView.builder(
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            padding: const EdgeInsets.all(10),
+                            margin: const EdgeInsets.all(10),
+                            width: MediaQuery.of(context).size.width,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey,
+                                  blurRadius: 2,
+                                  offset: Offset(0, 2),
+                                ),
+                              ],
+                              borderRadius: BorderRadius.circular(5),
                             ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            'sauce tomate mozzarella',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 12,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  snapshot.data![index]!.nom,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w800,
+                                    fontSize: 15,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  snapshot.data![index]!.info,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  snapshot.data![index]!.prix + ' DA',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w800,
+                                    fontSize: 15,
+                                    color: Colors.red,
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            '400 DA',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w800,
-                              fontSize: 15,
-                              color: Colors.red,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      margin: const EdgeInsets.all(10),
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey,
-                            blurRadius: 2,
-                            offset: Offset(0, 2),
-                          ),
-                        ],
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Pizza',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w800,
-                              fontSize: 15,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            'sauce tomate mozzarella',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 12,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            '400 DA',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w800,
-                              fontSize: 15,
-                              color: Colors.red,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      margin: const EdgeInsets.all(10),
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey,
-                            blurRadius: 2,
-                            offset: Offset(0, 2),
-                          ),
-                        ],
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Pizza',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w800,
-                              fontSize: 15,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            'sauce tomate mozzarella',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 12,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            '400 DA',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w800,
-                              fontSize: 15,
-                              color: Colors.red,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+                          );
+                        },
+                      );
+                    return CircularProgressIndicator();
+                  },
                 ),
               ),
             ],
