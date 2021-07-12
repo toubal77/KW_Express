@@ -9,6 +9,7 @@ import 'package:kw_express/models/restaurant.dart';
 import 'package:kw_express/screens/cartScreen.dart';
 import 'package:kw_express/services/databases.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:speed_dial_fab/speed_dial_fab.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -116,7 +117,26 @@ class _DetailRestoState extends State<DetailResto> {
                             ),
                           );
                         }
-                        return CircularProgressIndicator();
+                        return DefaultTabController(
+                          length: 3,
+                          child: TabBar(
+                            isScrollable: true,
+                            indicatorColor: Colors.red,
+                            indicatorWeight: 2.0,
+                            tabs: <Widget>[
+                              for (int i = 0; i < 3; i++)
+                                Shimmer.fromColors(
+                                  baseColor: Colors.white,
+                                  highlightColor: Colors.red,
+                                  child: Container(
+                                    height: 40,
+                                    width: 100,
+                                    color: Colors.yellow,
+                                  ),
+                                ),
+                            ],
+                          ),
+                        );
                       },
                     ),
                   ],
@@ -195,7 +215,66 @@ class _DetailRestoState extends State<DetailResto> {
                           );
                         },
                       );
-                    return CircularProgressIndicator();
+                    return ListView.builder(
+                      itemCount: 5,
+                      itemBuilder: (context, index) {
+                        return Shimmer.fromColors(
+                          baseColor: Colors.white60,
+                          highlightColor: Colors.red,
+                          child: Container(
+                            padding: const EdgeInsets.all(10),
+                            margin: const EdgeInsets.all(10),
+                            width: MediaQuery.of(context).size.width,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey,
+                                  blurRadius: 2,
+                                  offset: Offset(0, 2),
+                                ),
+                              ],
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Shimmer.fromColors(
+                                  baseColor: Colors.white,
+                                  highlightColor: Colors.red,
+                                  child: Container(
+                                    height: 20,
+                                    width: 200,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Shimmer.fromColors(
+                                  baseColor: Colors.white,
+                                  highlightColor: Colors.red,
+                                  child: Container(
+                                    height: 30,
+                                    width: 300,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Shimmer.fromColors(
+                                  baseColor: Colors.white,
+                                  highlightColor: Colors.red,
+                                  child: Container(
+                                    height: 20,
+                                    width: 100,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    );
                   },
                 ),
               ),
