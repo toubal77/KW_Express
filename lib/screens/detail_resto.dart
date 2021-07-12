@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kw_express/helper/icons_app.dart';
 import 'package:kw_express/home_widget.dart';
+import 'package:kw_express/models/cart.dart';
 import 'package:kw_express/models/detailRestaurant.dart';
 import 'package:kw_express/models/detailRestoMenu.dart';
 import 'package:kw_express/models/restaurant.dart';
 import 'package:kw_express/screens/cartScreen.dart';
 import 'package:kw_express/services/databases.dart';
+import 'package:provider/provider.dart';
 import 'package:speed_dial_fab/speed_dial_fab.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -129,53 +131,66 @@ class _DetailRestoState extends State<DetailResto> {
                       return ListView.builder(
                         itemCount: snapshot.data!.length,
                         itemBuilder: (context, index) {
-                          return Container(
-                            padding: const EdgeInsets.all(10),
-                            margin: const EdgeInsets.all(10),
-                            width: MediaQuery.of(context).size.width,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey,
-                                  blurRadius: 2,
-                                  offset: Offset(0, 2),
-                                ),
-                              ],
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
+                          return GestureDetector(
+                            onTap: () {
+                              Provider.of<Cart>(context, listen: false).addItem(
                                   snapshot.data![index]!.nom,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w800,
-                                    fontSize: 15,
+                                  1,
+                                  double.parse(snapshot.data![index]!.prix));
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Ajoute dans le panier'),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.all(10),
+                              margin: const EdgeInsets.all(10),
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey,
+                                    blurRadius: 2,
+                                    offset: Offset(0, 2),
                                   ),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  snapshot.data![index]!.info,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 12,
+                                ],
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    snapshot.data![index]!.nom,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w800,
+                                      fontSize: 15,
+                                    ),
                                   ),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  snapshot.data![index]!.prix + ' DA',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w800,
-                                    fontSize: 15,
-                                    color: Colors.red,
+                                  SizedBox(
+                                    height: 10,
                                   ),
-                                ),
-                              ],
+                                  Text(
+                                    snapshot.data![index]!.info,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    '${snapshot.data![index]!.prix.toString()} DA',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w800,
+                                      fontSize: 15,
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           );
                         },
@@ -233,27 +248,27 @@ class _DetailRestoState extends State<DetailResto> {
           "Commander",
         ],
         secondaryIconsOnPress: [
-          () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => CartScreen(),
-              ),
-            );
-          },
-          // () async {
-          //   if (await canLaunch(widget.resDet!.map.toString())) {
-          //     await launch(
-          //       widget.resDet!.map.toString(),
-          //     );
-          //   } else {
-          //     ScaffoldMessenger.of(context).showSnackBar(
-          //       const SnackBar(
-          //         content: Text('Can\'t open google map'),
-          //       ),
-          //     );
-          //   }
+          // () {
+          //   Navigator.push(
+          //     context,
+          //     MaterialPageRoute(
+          //       builder: (context) => CartScreen(),
+          //     ),
+          //   );
           // },
+          () async {
+            if (await canLaunch(widget.resDet!.map.toString())) {
+              await launch(
+                widget.resDet!.map.toString(),
+              );
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Can\'t open google map'),
+                ),
+              );
+            }
+          },
           () => {
                 showDialog(
                   context: context,

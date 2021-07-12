@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 
 class CartItem {
-  final String id;
   final String title;
   final int quantity;
   final double price;
 
   CartItem({
-    required this.id,
     required this.title,
     required this.quantity,
     required this.price,
@@ -33,16 +31,14 @@ class Cart with ChangeNotifier {
   }
 
   void addItem(
-    String productId,
-    double price,
-    int quantity,
     String title,
+    int quantity,
+    double price,
   ) {
-    if (_items.containsKey(productId)) {
+    if (_items.containsKey(title)) {
       _items.update(
-        productId,
+        title,
         (existingCartItem) => CartItem(
-          id: existingCartItem.id,
           title: existingCartItem.title,
           quantity: existingCartItem.quantity + quantity,
           price: existingCartItem.price,
@@ -50,9 +46,8 @@ class Cart with ChangeNotifier {
       );
     } else {
       _items.putIfAbsent(
-        productId,
+        title,
         () => CartItem(
-          id: DateTime.now().toString(),
           title: title,
           quantity: quantity,
           price: price,
@@ -60,6 +55,7 @@ class Cart with ChangeNotifier {
       );
     }
     print('item added to cart');
+    print(_items);
     notifyListeners();
   }
 
@@ -78,7 +74,6 @@ class Cart with ChangeNotifier {
       _items.update(
           productId,
           (existingCartItem) => CartItem(
-                id: existingCartItem.id,
                 title: existingCartItem.title,
                 price: existingCartItem.price,
                 quantity: existingCartItem.quantity - 1,
