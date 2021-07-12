@@ -5,6 +5,7 @@ import 'package:kw_express/home_widget.dart';
 import 'package:kw_express/models/detailRestaurant.dart';
 import 'package:kw_express/models/detailRestoMenu.dart';
 import 'package:kw_express/models/restaurant.dart';
+import 'package:kw_express/screens/cartScreen.dart';
 import 'package:kw_express/services/databases.dart';
 import 'package:speed_dial_fab/speed_dial_fab.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -232,19 +233,27 @@ class _DetailRestoState extends State<DetailResto> {
           "Commander",
         ],
         secondaryIconsOnPress: [
-          () async {
-            if (await canLaunch(widget.resDet!.map.toString())) {
-              await launch(
-                widget.resDet!.map.toString(),
-              );
-            } else {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Can\'t open google map'),
-                ),
-              );
-            }
+          () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => CartScreen(),
+              ),
+            );
           },
+          // () async {
+          //   if (await canLaunch(widget.resDet!.map.toString())) {
+          //     await launch(
+          //       widget.resDet!.map.toString(),
+          //     );
+          //   } else {
+          //     ScaffoldMessenger.of(context).showSnackBar(
+          //       const SnackBar(
+          //         content: Text('Can\'t open google map'),
+          //       ),
+          //     );
+          //   }
+          // },
           () => {
                 showDialog(
                   context: context,

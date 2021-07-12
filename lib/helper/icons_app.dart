@@ -43,4 +43,6 @@ class IconsApp {
       IconData(0xE813, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData commande =
       IconData(0xE807, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData goBack =
+      IconData(0xE806, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }
