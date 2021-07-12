@@ -26,12 +26,18 @@ class _HomePageState extends State<HomePage> {
                   child: ListView.builder(
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
-                      return CardBuildRestaurant(snapshot.data![index]);
+                      return CardBuildRestaurant(
+                        res: snapshot.data![index],
+                        isLoading: false,
+                      );
                     },
                   ),
                 );
               }
-              return CircularProgressIndicator();
+              return CardBuildRestaurant(
+                res: null,
+                isLoading: true,
+              );
             },
           ),
         ],

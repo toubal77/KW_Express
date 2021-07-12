@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kw_express/models/restaurant.dart';
 import 'package:kw_express/services/databases.dart';
+import 'package:shimmer/shimmer.dart';
 
 class CarouselHome extends StatefulWidget {
   @override
@@ -97,7 +98,17 @@ class _CarouselHomeState extends State<CarouselHome> {
         } else if (snapshot.hasError) {
           return Text("${snapshot.error}");
         }
-        return CircularProgressIndicator();
+        return Shimmer.fromColors(
+          baseColor: Colors.white,
+          highlightColor: Colors.red,
+          child: Container(
+            margin: EdgeInsets.only(
+                top: 7.0, left: 10.0, right: 10.0, bottom: 10.0),
+            height: 310,
+            width: MediaQuery.of(context).size.width,
+            color: Colors.yellow,
+          ),
+        );
       },
     );
   }
