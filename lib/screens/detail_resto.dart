@@ -12,6 +12,7 @@ import 'package:kw_express/widgets/buildDetailRestoMenu.dart';
 import 'package:kw_express/widgets/buildShimmer/buildDetailRestoMenuShimmer.dart';
 import 'package:kw_express/widgets/buildShimmer/buildTabBarShimmer.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 // ignore: must_be_immutable
 class DetailResto extends StatefulWidget {
@@ -33,7 +34,7 @@ class _DetailRestoState extends State<DetailResto> {
         elevation: 0.0,
         leading: IconButton(
           onPressed: () {
-            Provider.of<Cart>(context).itemEmpty
+            Provider.of<Cart>(context, listen: false).itemEmpty == true
                 ? Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (context) => HomeWidget()),
@@ -67,7 +68,7 @@ class _DetailRestoState extends State<DetailResto> {
                               ),
                             ),
                             onPressed: () {
-                              Provider.of<Cart>(context).clear();
+                              Provider.of<Cart>(context, listen: false).clear();
 
                               Navigator.pushReplacement(
                                 context,
@@ -182,7 +183,11 @@ class _DetailRestoState extends State<DetailResto> {
                     return ListView.builder(
                       itemCount: 5,
                       itemBuilder: (context, index) {
-                        return BuildDetailRestoMenuShimmer();
+                        return Shimmer.fromColors(
+                          baseColor: Colors.white,
+                          highlightColor: Colors.red,
+                          child: BuildDetailRestoMenuShimmer(),
+                        );
                       },
                     );
                   },
@@ -223,10 +228,10 @@ class _DetailRestoState extends State<DetailResto> {
                     ),
                   ),
           ),
-          if (Provider.of<Cart>(context).itemEmpty)
+          if (Provider.of<Cart>(context, listen: false).itemEmpty == true)
             Positioned(
-              bottom: 30,
-              left: 35,
+              bottom: 20,
+              left: 25,
               child: GestureDetector(
                 onTap: () {
                   Navigator.push(
@@ -237,7 +242,7 @@ class _DetailRestoState extends State<DetailResto> {
                   );
                 },
                 child: Container(
-                  height: 30,
+                  height: 50,
                   width: 100,
                   decoration: BoxDecoration(
                     color: Colors.red,
@@ -250,12 +255,14 @@ class _DetailRestoState extends State<DetailResto> {
                       ),
                     ],
                   ),
-                  child: Text(
-                    'VOIR PANIER',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 12,
+                  child: Center(
+                    child: Text(
+                      'VOIR PANIER',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 12,
+                      ),
                     ),
                   ),
                 ),

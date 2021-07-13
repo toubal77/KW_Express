@@ -18,8 +18,8 @@ class BuildTabBarShimmer extends StatelessWidget {
               child: Container(
                 height: 40,
                 width: 100,
-                color: Colors.yellow,
                 decoration: BoxDecoration(
+                  color: Colors.yellow,
                   borderRadius: BorderRadius.circular(30),
                 ),
               ),
