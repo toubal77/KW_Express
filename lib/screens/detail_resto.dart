@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kw_express/helper/icons_app.dart';
 import 'package:kw_express/home_widget.dart';
 import 'package:kw_express/models/cart.dart';
 import 'package:kw_express/models/detailRestaurant.dart';
@@ -8,10 +7,11 @@ import 'package:kw_express/models/detailRestoMenu.dart';
 import 'package:kw_express/models/restaurant.dart';
 import 'package:kw_express/screens/cartScreen.dart';
 import 'package:kw_express/services/databases.dart';
+import 'package:kw_express/widgets/builFFloatButtonDetailResto.dart';
+import 'package:kw_express/widgets/buildDetailRestoMenu.dart';
+import 'package:kw_express/widgets/buildShimmer/buildDetailRestoMenuShimmer.dart';
+import 'package:kw_express/widgets/buildShimmer/buildTabBarShimmer.dart';
 import 'package:provider/provider.dart';
-import 'package:shimmer/shimmer.dart';
-import 'package:speed_dial_fab/speed_dial_fab.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 // ignore: must_be_immutable
 class DetailResto extends StatefulWidget {
@@ -33,10 +33,54 @@ class _DetailRestoState extends State<DetailResto> {
         elevation: 0.0,
         leading: IconButton(
           onPressed: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => HomeWidget()),
-            );
+            Provider.of<Cart>(context).itemEmpty
+                ? Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => HomeWidget()),
+                  )
+                : showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text("Panier sera efface"),
+                        content: Text(
+                            'si vous sortez de ce restaurant votre panier sera efface'),
+                        actions: [
+                          TextButton(
+                            child: Text(
+                              'CANCEL',
+                              style: TextStyle(
+                                color: Colors.red,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                          TextButton(
+                            child: Text(
+                              'OK',
+                              style: TextStyle(
+                                color: Colors.red,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            onPressed: () {
+                              Provider.of<Cart>(context).clear();
+
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => HomeWidget(),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
           },
           icon: Icon(
             Icons.backpack,
@@ -117,26 +161,7 @@ class _DetailRestoState extends State<DetailResto> {
                             ),
                           );
                         }
-                        return DefaultTabController(
-                          length: 3,
-                          child: TabBar(
-                            isScrollable: true,
-                            indicatorColor: Colors.red,
-                            indicatorWeight: 2.0,
-                            tabs: <Widget>[
-                              for (int i = 0; i < 3; i++)
-                                Shimmer.fromColors(
-                                  baseColor: Colors.white,
-                                  highlightColor: Colors.red,
-                                  child: Container(
-                                    height: 40,
-                                    width: 100,
-                                    color: Colors.yellow,
-                                  ),
-                                ),
-                            ],
-                          ),
-                        );
+                        return BuildTabBarShimmer();
                       },
                     ),
                   ],
@@ -151,128 +176,13 @@ class _DetailRestoState extends State<DetailResto> {
                       return ListView.builder(
                         itemCount: snapshot.data!.length,
                         itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              Provider.of<Cart>(context, listen: false).addItem(
-                                  snapshot.data![index]!.nom,
-                                  1,
-                                  double.parse(snapshot.data![index]!.prix));
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Ajoute dans le panier'),
-                                ),
-                              );
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.all(10),
-                              margin: const EdgeInsets.all(10),
-                              width: MediaQuery.of(context).size.width,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey,
-                                    blurRadius: 2,
-                                    offset: Offset(0, 2),
-                                  ),
-                                ],
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    snapshot.data![index]!.nom,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w800,
-                                      fontSize: 15,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    snapshot.data![index]!.info,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    '${snapshot.data![index]!.prix.toString()} DA',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w800,
-                                      fontSize: 15,
-                                      color: Colors.red,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
+                          return BuildDetailRestoMenu(snapshot.data![index]!);
                         },
                       );
                     return ListView.builder(
                       itemCount: 5,
                       itemBuilder: (context, index) {
-                        return Shimmer.fromColors(
-                          baseColor: Colors.white60,
-                          highlightColor: Colors.red,
-                          child: Container(
-                            padding: const EdgeInsets.all(10),
-                            margin: const EdgeInsets.all(10),
-                            width: MediaQuery.of(context).size.width,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey,
-                                  blurRadius: 2,
-                                  offset: Offset(0, 2),
-                                ),
-                              ],
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Shimmer.fromColors(
-                                  baseColor: Colors.white,
-                                  highlightColor: Colors.red,
-                                  child: Container(
-                                    height: 20,
-                                    width: 200,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Shimmer.fromColors(
-                                  baseColor: Colors.white,
-                                  highlightColor: Colors.red,
-                                  child: Container(
-                                    height: 30,
-                                    width: 300,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Shimmer.fromColors(
-                                  baseColor: Colors.white,
-                                  highlightColor: Colors.red,
-                                  child: Container(
-                                    height: 20,
-                                    width: 100,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
+                        return BuildDetailRestoMenuShimmer();
                       },
                     );
                   },
@@ -313,118 +223,47 @@ class _DetailRestoState extends State<DetailResto> {
                     ),
                   ),
           ),
-        ],
-      ),
-      floatingActionButton: SpeedDialFabWidget(
-        secondaryIconsList: [
-          IconsApp.trouve,
-          IconsApp.reserver,
-          IconsApp.commande,
-        ],
-        secondaryIconsText: [
-          "Trouver",
-          "Reserver",
-          "Commander",
-        ],
-        secondaryIconsOnPress: [
-          // () {
-          //   Navigator.push(
-          //     context,
-          //     MaterialPageRoute(
-          //       builder: (context) => CartScreen(),
-          //     ),
-          //   );
-          // },
-          () async {
-            if (await canLaunch(widget.resDet!.map.toString())) {
-              await launch(
-                widget.resDet!.map.toString(),
-              );
-            } else {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Can\'t open google map'),
+          if (Provider.of<Cart>(context).itemEmpty)
+            Positioned(
+              bottom: 30,
+              left: 35,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CartScreen(),
+                    ),
+                  );
+                },
+                child: Container(
+                  height: 30,
+                  width: 100,
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(40),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey,
+                        blurRadius: 2,
+                        offset: Offset(1, 2),
+                      ),
+                    ],
+                  ),
+                  child: Text(
+                    'VOIR PANIER',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 12,
+                    ),
+                  ),
                 ),
-              );
-            }
-          },
-          () => {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: Text("Reserver une table:"),
-                      content: GestureDetector(
-                        onTap: () {
-                          launch(
-                              'tel:+213${widget.resDet!.num_tel.toString()}');
-                        },
-                        child: ListTile(
-                          leading: Icon(
-                            Icons.call,
-                            color: Colors.blue,
-                          ),
-                          title: Text(
-                            widget.resDet!.num_tel.toString(),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                )
-              },
-          () => {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: Text("Passer votre commande:"),
-                      content: Container(
-                        height: 120,
-                        child: Column(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                launch('tel:+213${0542149642}');
-                              },
-                              child: ListTile(
-                                leading: Icon(
-                                  Icons.call,
-                                  color: Colors.blue,
-                                ),
-                                title: Text(
-                                  '0659185831',
-                                ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                launch('tel:+213${0792140427}');
-                              },
-                              child: ListTile(
-                                leading: Icon(
-                                  Icons.call,
-                                  color: Colors.blue,
-                                ),
-                                title: Text(
-                                  '0792140427',
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                )
-              },
+              ),
+            ),
         ],
-        primaryIconExpand: IconsApp.floatButton,
-        secondaryBackgroundColor: Colors.red,
-        secondaryForegroundColor: Colors.white,
-        primaryBackgroundColor: Colors.red,
-        primaryForegroundColor: Colors.white,
       ),
+      floatingActionButton: BuildFloatButtonDetailResto(widget.resDet!),
 
       // floatingActionButton: UnicornDialer(
       //   backgroundColor: Color.fromRGBO(255, 255, 255, 0.6),
