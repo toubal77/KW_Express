@@ -5,8 +5,20 @@ import 'package:kw_express/helper/api_app.dart';
 import 'package:kw_express/models/detailRestaurant.dart';
 import 'package:kw_express/models/detailRestoMenu.dart';
 import 'package:kw_express/models/restaurant.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DatabaseMethodes {
+  Future setPets(List<String> pets) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList('pets', pets);
+  }
+
+  Future<List<String>?> getPets() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var list = prefs.getStringList('pets');
+    return list;
+  }
+
   Future<List<Restaurant?>?> getRestaurant() async {
     try {
       List<Restaurant?> list = [];

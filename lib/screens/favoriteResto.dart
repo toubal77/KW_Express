@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
-import 'package:kw_express/widgets/cardBuildRestaurant.dart';
-import 'package:provider/provider.dart';
+class FavoriteResto extends StatefulWidget {
+  @override
+  _FavoriteRestoState createState() => _FavoriteRestoState();
+}
 
-class FavoriteResto extends StatelessWidget {
+class _FavoriteRestoState extends State<FavoriteResto> {
   @override
   Widget build(BuildContext context) {
-    final favoriteResto = Provider.of<FavoriteResto>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -20,21 +21,6 @@ class FavoriteResto extends StatelessWidget {
         ),
         centerTitle: true,
         elevation: 10.0,
-      ),
-      body: Expanded(
-        child: favoriteResto.items!.length == 0
-            ? Center(
-                child: Text('You don\'t have item - let add some!'),
-              )
-            : ListView.builder(
-                itemCount: favoriteResto.items!.length,
-                itemBuilder: (context, index) {
-                  return CardBuildRestaurant(
-                    res: favoriteResto.items![index],
-                    isLoading: false,
-                  );
-                },
-              ),
       ),
     );
   }

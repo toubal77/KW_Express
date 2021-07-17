@@ -193,15 +193,15 @@ class _CardBuildRestaurantState extends State<CardBuildRestaurant> {
               right: 40,
               child: GestureDetector(
                 onTap: () {
-                  setState(() {
-                    if (!Provider.of<FavoriteResto>(context, listen: false)
-                        .itemIsFavorited(widget.res))
-                      Provider.of<FavoriteResto>(context, listen: false)
-                          .addItem(widget.res);
-                    else
-                      Provider.of<FavoriteResto>(context, listen: false)
-                          .removeItem(widget.res);
-                  });
+                  // setState(() {
+                  //   if (!Provider.of<FavoriteResto>(context, listen: false)
+                  //       .itemIsFavorited(widget.res))
+                  //     Provider.of<FavoriteResto>(context, listen: false)
+                  //         .addItem(widget.res);
+                  //   else
+                  //     Provider.of<FavoriteResto>(context, listen: false)
+                  //         .removeItem(widget.res);
+                  // });
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -218,14 +218,16 @@ class _CardBuildRestaurantState extends State<CardBuildRestaurant> {
                   height: 55,
                   width: 55,
                   child: Icon(
-                    Provider.of<FavoriteResto>(context, listen: false)
-                            .itemIsFavorited(widget.res)
-                        ? IconsApp.isFavorite
-                        : IconsApp.notFavorite,
-                    color: Provider.of<FavoriteResto>(context, listen: false)
-                            .itemIsFavorited(widget.res)
-                        ? Colors.red
-                        : Colors.black,
+                    // Provider.of<FavoriteResto>(context, listen: false)
+                    //         .itemIsFavorited(widget.res)
+                    //     ? IconsApp.isFavorite
+                    //     : IconsApp.notFavorite,
+                    IconsApp.notFavorite,
+                    // color: Provider.of<FavoriteResto>(context, listen: false)
+                    //         .itemIsFavorited(widget.res)
+                    //     ? Colors.red
+                    //     : Colors.black,
+                    color: Colors.red,
                   ),
                 ),
               ),
