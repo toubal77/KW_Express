@@ -2,29 +2,34 @@ import 'package:flutter/material.dart';
 
 import 'package:kw_express/models/restaurant.dart';
 
-class FavoriteResto extends ChangeNotifier {
+class FavoriteResto with ChangeNotifier {
   Map<String, Restaurant?> _items = {};
-
-  // void addItem(Restaurant? data, String title) {
-  //   if (_items.containsKey(title)) {
-  //     _items.remove(title);
-  //   } else {
-  //     _items.putIfAbsent(
-  //       title,
-  //       () => Restaurant(
-  //         id_resto: data!.id_resto,
-  //         nom_resto: data.nom_resto,
-  //         img_profile: data.img_profile,
-  //         img_cover: data.img_cover,
-  //       ),
-  //     );
-  //     print('item added to favorites list');
-  //     notifyListeners();
-  //   }
-  // }
-
   Map<String, Restaurant?> get items {
     return {..._items};
+  }
+
+  void addItem(Restaurant? data, String title) {
+    if (_items.containsKey(title)) {
+      _items.remove(title);
+    } else {
+      _items.putIfAbsent(
+        title,
+        () => Restaurant(
+          id_resto: data!.id_resto,
+          nom_resto: data.nom_resto,
+          map: data.map,
+          adress: data.adress,
+          wilaya: data.wilaya,
+          dure: data.dure,
+          img_cover: data.img_cover,
+          img_profile: data.img_profile,
+          service: data.service,
+          num_tel: data.num_tel,
+        ),
+      );
+      print('item added to favorites list');
+      notifyListeners();
+    }
   }
 
   void removeItem(Restaurant? data) {
