@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kw_express/helper/icons_app.dart';
+import 'package:kw_express/models/favorite.dart';
 import 'package:kw_express/models/restaurant.dart';
 import 'package:kw_express/screens/detail_resto.dart';
+import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
 // ignore: must_be_immutable
@@ -192,7 +194,13 @@ class _CardBuildRestaurantState extends State<CardBuildRestaurant> {
               child: GestureDetector(
                 onTap: () {
                   setState(() {
-                    isFavorite = !isFavorite;
+                    if (!Provider.of<FavoriteResto>(context, listen: false)
+                        .itemIsFavorited(widget.res))
+                      Provider.of<FavoriteResto>(context, listen: false)
+                          .addItem(widget.res);
+                    else
+                      Provider.of<FavoriteResto>(context, listen: false)
+                          .removeItem(widget.res);
                   });
                 },
                 child: Container(
@@ -210,8 +218,14 @@ class _CardBuildRestaurantState extends State<CardBuildRestaurant> {
                   height: 55,
                   width: 55,
                   child: Icon(
-                    isFavorite ? IconsApp.isFavorite : IconsApp.notFavorite,
-                    color: isFavorite ? Colors.red : Colors.black,
+                    Provider.of<FavoriteResto>(context, listen: false)
+                            .itemIsFavorited(widget.res)
+                        ? IconsApp.isFavorite
+                        : IconsApp.notFavorite,
+                    color: Provider.of<FavoriteResto>(context, listen: false)
+                            .itemIsFavorited(widget.res)
+                        ? Colors.red
+                        : Colors.black,
                   ),
                 ),
               ),
