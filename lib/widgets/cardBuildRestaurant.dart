@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kw_express/helper/icons_app.dart';
-import 'package:kw_express/models/favorite.dart';
+
 import 'package:kw_express/models/restaurant.dart';
 import 'package:kw_express/screens/detail_resto.dart';
-import 'package:provider/provider.dart';
+
 import 'package:shimmer/shimmer.dart';
 
 // ignore: must_be_immutable
