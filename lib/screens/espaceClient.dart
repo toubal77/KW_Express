@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_share/flutter_share.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kw_express/helper/icons_app.dart';
 import 'package:kw_express/screens/serviceClient.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class EspaceClient extends StatelessWidget {
   @override
@@ -44,7 +46,15 @@ class EspaceClient extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () async {
+                        await FlutterShare.share(
+                          title: 'K&W Express',
+                          text: '',
+                          linkUrl:
+                              'https://play.google.com/store/apps/details?id=com.kwexpress.app',
+                          chooserTitle: 'Partager',
+                        );
+                      },
                       child: Row(
                         children: [
                           Icon(
@@ -112,7 +122,15 @@ class EspaceClient extends StatelessWidget {
                       height: 30,
                     ),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () async {
+                        var linkUrl =
+                            'https://play.google.com/store/apps/details?id=com.kwexpress.app';
+                        if (await canLaunch(linkUrl.toString())) {
+                          await launch(
+                            linkUrl.toString(),
+                          );
+                        }
+                      },
                       child: Row(
                         children: [
                           Icon(
@@ -130,24 +148,34 @@ class EspaceClient extends StatelessWidget {
                 ),
               ),
             ),
-            Center(
-              child: Column(
-                children: [
-                  Text(
-                    'powerdBy',
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w300,
-                      fontFamily: 'CedarvilleCursive-Regular',
-                      color: Colors.red,
+            GestureDetector(
+              onTap: () async {
+                var linkUrl = 'https://www.facebook.com/KWAffichage/';
+                if (await canLaunch(linkUrl.toString())) {
+                  await launch(
+                    linkUrl.toString(),
+                  );
+                }
+              },
+              child: Center(
+                child: Column(
+                  children: [
+                    Text(
+                      'powerdBy',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w300,
+                        fontFamily: 'CedarvilleCursive-Regular',
+                        color: Colors.red,
+                      ),
                     ),
-                  ),
-                  Container(
-                    width: 100,
-                    height: 100,
-                    child: SvgPicture.asset('assets/drawable/kw.svg'),
-                  ),
-                ],
+                    Container(
+                      width: 100,
+                      height: 100,
+                      child: SvgPicture.asset('assets/drawable/kw.svg'),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

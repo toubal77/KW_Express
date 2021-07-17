@@ -45,4 +45,18 @@ class Restaurant {
       num_tel: json['num_tel'].toString(),
     );
   }
+  Map<String, dynamic> toJson() {
+    return {
+      "id_resto": id_resto,
+      "nom_resto": nom_resto,
+      "map": map,
+      "adress": adress,
+      "wilaya": wilaya,
+      "dure": dure,
+      "img_cover": img_cover,
+      "img_profile": img_profile,
+      "service": service,
+      "num_tel": num_tel,
+    };
+  }
 }

@@ -39,6 +39,8 @@ dependencies:
   flutter_svg: ^0.22.0
   speed_dial_fab: ^2.1.1
   url_launcher: ^6.0.9
+  flutter_share: ^2.0.0
+  email_launcher: ^1.1.1
 
 dev_dependencies:
   flutter_test:

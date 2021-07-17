@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:kw_express/models/cart.dart';
 import 'package:kw_express/models/detailRestoMenu.dart';
+
 import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
-class BuildDetailRestoMenu extends StatelessWidget {
+class BuildDetailRestoMenu extends StatefulWidget {
   DetailRestoMenu? res;
   BuildDetailRestoMenu(this.res);
 
+  @override
+  _BuildDetailRestoMenuState createState() => _BuildDetailRestoMenuState();
+}
+
+class _BuildDetailRestoMenuState extends State<BuildDetailRestoMenu> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         Provider.of<Cart>(context, listen: false)
-            .addItem(res!.nom, 1, double.parse(res!.prix));
+            .addItem(widget.res!.nom, 1, double.parse(widget.res!.prix));
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Ajoute dans le panier'),
@@ -39,7 +45,7 @@ class BuildDetailRestoMenu extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              res!.nom,
+              widget.res!.nom,
               style: TextStyle(
                 fontWeight: FontWeight.w800,
                 fontSize: 15,
@@ -49,7 +55,7 @@ class BuildDetailRestoMenu extends StatelessWidget {
               height: 10,
             ),
             Text(
-              res!.info,
+              widget.res!.info,
               style: TextStyle(
                 fontWeight: FontWeight.w400,
                 fontSize: 12,
@@ -59,7 +65,7 @@ class BuildDetailRestoMenu extends StatelessWidget {
               height: 10,
             ),
             Text(
-              '${res!.prix.toString()} DA',
+              '${widget.res!.prix.toString()} DA',
               style: TextStyle(
                 fontWeight: FontWeight.w800,
                 fontSize: 15,

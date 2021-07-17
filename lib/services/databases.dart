@@ -100,4 +100,28 @@ class DatabaseMethodes {
       print(e.toString());
     }
   }
+
+  Future sendMessage(String nom, String num, String address) async {
+    print(nom);
+    print(num);
+    print(address);
+    // try {
+    //   var url = Uri.parse(ApiApp.sendMessage);
+    //   var response = await http.post(url, body: {
+    //     'nom_feed': nom,
+    //     'numero_client': num,
+    //     'description': address,
+    //   });
+
+    //   if (response.statusCode == 200) {
+    //     print('seccus send message');
+    //   } else {
+    //     print('field send message');
+    //     print('Response status: ${response.statusCode}');
+    //   }
+    // } catch (e) {
+    //   print('field to try send message');
+    //   print(e.toString());
+    // }
+  }
 }

@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kw_express/helper/icons_app.dart';
 
 import 'package:kw_express/models/restaurant.dart';
 import 'package:kw_express/screens/detail_resto.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:shimmer/shimmer.dart';
 
@@ -18,6 +21,18 @@ class CardBuildRestaurant extends StatefulWidget {
 
 class _CardBuildRestaurantState extends State<CardBuildRestaurant> {
   bool isFavorite = false;
+  List<String>? _list = [];
+  saveData(Restaurant? data) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    String json = jsonEncode(data);
+    _list = prefs.getStringList('favoriteResto');
+    _list?.add(json);
+    prefs
+        .setStringList('favoriteResto', _list!)
+        .then((value) => print('resto added to favorite Resto.'));
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -193,6 +208,7 @@ class _CardBuildRestaurantState extends State<CardBuildRestaurant> {
               right: 40,
               child: GestureDetector(
                 onTap: () {
+                  saveData(widget.res);
                   // setState(() {
                   //   if (!Provider.of<FavoriteResto>(context, listen: false)
                   //       .itemIsFavorited(widget.res))
