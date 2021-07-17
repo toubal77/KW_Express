@@ -29,140 +29,136 @@ class CartScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: Expanded(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: cart.items.length == 0
-                  ? Center(
-                      child: Text('You don\'t have item - let add some!'),
-                    )
-                  : ListView.builder(
-                      itemCount: cart.items.length,
-                      itemBuilder: (context, index) {
-                        return BuildItemCart(
-                          cart.items.values.toList()[index].price,
-                          cart.items.values.toList()[index].quantity,
-                          cart.items.values.toList()[index].title,
-                        );
-                      },
-                    ),
-            ),
-            Container(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  Divider(
-                    height: 3,
-                    color: Colors.grey,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Sous-Total:',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 16,
-                        ),
-                      ),
-                      Text(
-                        '${cart.totalAmount} DA',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Frais de livraison',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 13,
-                          color: Colors.grey,
-                        ),
-                      ),
-                      Text(
-                        'A partir de 400 DA',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 13,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Total :',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 16,
-                        ),
-                      ),
-                      Text(
-                        '${cart.totalAmount + 400} DA',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Divider(
-                    height: 3,
-                    color: Colors.grey,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Center(
-                    child: Container(
-                      width: 130,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(40),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'COMMANDER',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                ],
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            child: Container(
+              child: ListView.builder(
+                itemCount: cart.items.length,
+                itemBuilder: (context, index) {
+                  return BuildItemCart(
+                    cart.items.values.toList()[index].price,
+                    cart.items.values.toList()[index].quantity,
+                    cart.items.values.toList()[index].title,
+                  );
+                },
               ),
             ),
-          ],
-        ),
+          ),
+          Container(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Divider(
+                  height: 3,
+                  color: Colors.grey,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Sous-Total:',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 16,
+                      ),
+                    ),
+                    Text(
+                      '${cart.totalAmount} DA',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Frais de livraison',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 13,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    Text(
+                      'A partir de 400 DA',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 13,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Total :',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 16,
+                      ),
+                    ),
+                    Text(
+                      '${cart.totalAmount + 400} DA',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Divider(
+                  height: 3,
+                  color: Colors.grey,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Center(
+                  child: Container(
+                    width: 130,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(40),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'COMMANDER',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

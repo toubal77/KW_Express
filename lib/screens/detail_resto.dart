@@ -26,6 +26,11 @@ class DetailResto extends StatefulWidget {
 class _DetailRestoState extends State<DetailResto> {
   late Color color;
   late TabController tabController;
+  @override
+  initState() {
+    DatabaseMethodes().updateVue(widget.resDet!.id_resto);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

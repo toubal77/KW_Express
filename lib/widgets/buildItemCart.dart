@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kw_express/models/cart.dart';
+import 'package:provider/provider.dart';
 
 class BuildItemCart extends StatelessWidget {
   final double price;
@@ -12,6 +14,7 @@ class BuildItemCart extends StatelessWidget {
   );
   @override
   Widget build(BuildContext context) {
+    final cart = Provider.of<Cart>(context);
     return Container(
       padding: const EdgeInsets.all(10),
       margin: const EdgeInsets.all(8),
@@ -50,20 +53,25 @@ class BuildItemCart extends StatelessWidget {
               ),
             ],
           ),
-          Container(
-            width: 100,
-            height: 50,
-            decoration: BoxDecoration(
-              color: Colors.red,
-              borderRadius: BorderRadius.circular(40),
-            ),
-            child: Center(
-              child: Text(
-                'SUPPRIMER',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
+          GestureDetector(
+            onTap: () {
+              cart.removeSingleItem(title);
+            },
+            child: Container(
+              width: 100,
+              height: 50,
+              decoration: BoxDecoration(
+                color: Colors.red,
+                borderRadius: BorderRadius.circular(40),
+              ),
+              child: Center(
+                child: Text(
+                  'SUPPRIMER',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
             ),

@@ -101,6 +101,24 @@ class DatabaseMethodes {
     }
   }
 
+  Future updateVue(String idResto) async {
+    try {
+      var url = Uri.parse(ApiApp.updateVue);
+      var response = await http.post(url, body: {
+        'id_resto': idResto,
+      });
+      if (response.statusCode == 200) {
+        print('seccus update vue resto');
+      } else {
+        print('field  update vue resto');
+        print('Response status: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('field to try  update vue resto');
+      print(e.toString());
+    }
+  }
+
   Future sendMessage(String nom, String num, String address) async {
     print(nom);
     print(num);
