@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_sms/flutter_sms.dart';
 import 'package:kw_express/helper/icons_app.dart';
 import 'package:kw_express/models/cart.dart';
 import 'package:kw_express/widgets/buildItemCart.dart';
 import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class CartScreen extends StatelessWidget {
+  final nomRsto;
+  CartScreen(this.nomRsto);
+  List commandes = [];
+
   @override
   Widget build(BuildContext context) {
     final cart = Provider.of<Cart>(context);
+    double commandePrice = cart.totalAmount + 400;
+    commandes.add('Restaurant: ' + nomRsto);
+    commandes.add('Somme: ' + commandePrice.toString() + 'DA');
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red,
@@ -37,6 +46,11 @@ class CartScreen extends StatelessWidget {
               child: ListView.builder(
                 itemCount: cart.items.length,
                 itemBuilder: (context, index) {
+                  commandes.add(
+                    cart.items.values.toList()[index].quantity.toString() +
+                        ' * ' +
+                        cart.items.values.toList()[index].title.toString(),
+                  );
                   return BuildItemCart(
                     cart.items.values.toList()[index].price,
                     cart.items.values.toList()[index].quantity,
@@ -133,20 +147,36 @@ class CartScreen extends StatelessWidget {
                   height: 10,
                 ),
                 Center(
-                  child: Container(
-                    width: 130,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(40),
-                    ),
-                    child: Center(
-                      child: Text(
-                        'COMMANDER',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
+                  child: GestureDetector(
+                    onTap: () async {
+                      var message = StringBuffer();
+                      List<String> recipents = ["0659185831"];
+                      commandes.forEach((item) {
+                        message.write(item + "\n\n");
+                      });
+                      String _result = await sendSMS(
+                              message: message.toString(),
+                              recipients: recipents)
+                          .catchError((onError) {
+                        print(onError);
+                      });
+                      print(_result);
+                    },
+                    child: Container(
+                      width: 130,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'COMMANDER',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                     ),
