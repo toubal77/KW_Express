@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:kw_express/helper/api_app.dart';
 import 'package:kw_express/models/detailRestaurant.dart';
 import 'package:kw_express/models/detailRestoMenu.dart';
+import 'package:kw_express/models/offresResto.dart';
 import 'package:kw_express/models/restaurant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -38,6 +39,30 @@ class DatabaseMethodes {
       }
     } catch (e) {
       print('field to try get restaurant');
+      print(e.toString());
+    }
+  }
+
+  Future<List<OffresResto?>?> getOffreResto() async {
+    try {
+      List<OffresResto?> list = [];
+      var url = Uri.parse(ApiApp.restaurant);
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        print('seccus get offre Resto');
+        var data = json.decode(response.body);
+        var rest = data["offre"] as List;
+
+        list = rest
+            .map<OffresResto>((json) => OffresResto.fromJson(json))
+            .toList();
+        return list;
+      } else {
+        print('field get offre Resto');
+        print('Response status: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('field to try get offre Resto');
       print(e.toString());
     }
   }

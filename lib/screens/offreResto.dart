@@ -1,7 +1,97 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kw_express/helper/api_app.dart';
+import 'package:http/http.dart' as http;
+import 'package:kw_express/models/offresResto.dart';
 
-class OffreResto extends StatelessWidget {
+class OffreResto extends StatefulWidget {
+  @override
+  _OffreRestoState createState() => _OffreRestoState();
+}
+
+class _OffreRestoState extends State<OffreResto> {
+  List<OffresResto?> _list = [];
+  Future<List<OffresResto?>?> getOffreResto() async {
+    try {
+      var url = Uri.parse(ApiApp.restaurant);
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        print('seccus get offre Resto');
+        final data = json.decode(response.body)["offre"];
+        setState(() {
+          for (Map<String, dynamic> i in data) {
+            _list.add(OffresResto.fromJson(i));
+          }
+        });
+      } else {
+        print('field get offre Resto');
+        print('Response status: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('field to try get offre Resto');
+      print(e.toString());
+    }
+  }
+
+  @override
+  void initState() {
+    getOffreResto().then((value) {
+      for (int i = 0; i < _list.length; i++) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              contentPadding: EdgeInsets.zero,
+              content: Stack(
+                children: <Widget>[
+                  Opacity(
+                    opacity: 1,
+                    child: Container(
+                      margin: EdgeInsets.all(10.0),
+                      color: Colors.transparent,
+                      child: Image.network(
+                        _list[i]!.imgUrl.toString(),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    top: 0,
+                    left: 0,
+                    child: Container(
+                      height: 30,
+                      width: 30,
+                      child: DecoratedBox(
+                        child: IconButton(
+                            padding: EdgeInsets.zero,
+                            icon: Icon(
+                              Icons.close,
+                              color: Colors.red,
+                              size: 18,
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            }),
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          // borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      }
+    });
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
