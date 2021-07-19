@@ -62,6 +62,7 @@ flutter:
   assets:
     - assets/drawable/resto_building.svg
     - assets/drawable/resto_profile.svg
+    - assets/drawable/resto_offre.svg
     - assets/drawable/kw.svg
     - assets/drawable_png/
     - assets/icons/
