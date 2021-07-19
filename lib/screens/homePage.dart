@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:kw_express/helper/api_app.dart';
@@ -7,6 +8,7 @@ import 'package:kw_express/models/restaurant.dart';
 
 import 'package:kw_express/widgets/cardBuildRestaurant.dart';
 import 'package:kw_express/widgets/carouselHome.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -59,9 +61,25 @@ class _HomePageState extends State<HomePage> {
     setState(() {});
   }
 
+  Future getCurrentLocalisation() async {
+    var position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    var lastPosition = await Geolocator.getLastKnownPosition();
+    print(lastPosition);
+    var lat = position.latitude;
+    var log = position.longitude;
+    print('lalitude: $lat, logitude: $log');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var location =
+        'Livraison: https://www.google.com/maps/search/api=1&query=$lat,$log' +
+            '\n\n';
+    prefs.setString('location', location);
+  }
+
   @override
   void initState() {
     getRestaurant();
+    getCurrentLocalisation();
     super.initState();
   }
 

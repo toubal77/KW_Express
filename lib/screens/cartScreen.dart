@@ -4,19 +4,24 @@ import 'package:kw_express/helper/icons_app.dart';
 import 'package:kw_express/models/cart.dart';
 import 'package:kw_express/widgets/buildItemCart.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: must_be_immutable
-class CartScreen extends StatelessWidget {
+class CartScreen extends StatefulWidget {
   final nomRsto;
   CartScreen(this.nomRsto);
+
+  @override
+  _CartScreenState createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
   List commandes = [];
 
   @override
   Widget build(BuildContext context) {
     final cart = Provider.of<Cart>(context);
-    double commandePrice = cart.totalAmount + 400;
-    commandes.add('Restaurant: ' + nomRsto);
-    commandes.add('Somme: ' + commandePrice.toString() + 'DA');
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red,
@@ -46,11 +51,11 @@ class CartScreen extends StatelessWidget {
               child: ListView.builder(
                 itemCount: cart.items.length,
                 itemBuilder: (context, index) {
-                  commandes.add(
-                    cart.items.values.toList()[index].quantity.toString() +
-                        ' * ' +
-                        cart.items.values.toList()[index].title.toString(),
-                  );
+                  // commandes.add(
+                  //   cart.items.values.toList()[index].quantity.toString() +
+                  //       ' * ' +
+                  //       cart.items.values.toList()[index].title.toString(),
+                  // );
                   return BuildItemCart(
                     cart.items.values.toList()[index].price,
                     cart.items.values.toList()[index].quantity,
@@ -150,10 +155,28 @@ class CartScreen extends StatelessWidget {
                   child: GestureDetector(
                     onTap: () async {
                       var message = StringBuffer();
+                      commandes.add('Restaurant: ' + widget.nomRsto + '\n\n');
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+
+                      var loc = prefs.getString('location');
+                      commandes.add(loc! + '\n\n');
+                      double commandePrice = cart.totalAmount + 400;
+                      commandes.add(
+                          'Somme: ' + commandePrice.toString() + 'DA' + '\n\n');
+                      for (int i = 0; i < cart.items.length; i++) {
+                        commandes.add(
+                          cart.items.values.toList()[i].quantity.toString() +
+                              ' * ' +
+                              cart.items.values.toList()[i].title.toString(),
+                        );
+                      }
+
                       List<String> recipents = ["0659185831"];
                       commandes.forEach((item) {
                         message.write(item + "\n\n");
                       });
+                      print(commandes);
                       String _result = await sendSMS(
                               message: message.toString(),
                               recipients: recipents)
