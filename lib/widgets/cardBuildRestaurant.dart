@@ -3,9 +3,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kw_express/helper/icons_app.dart';
+import 'package:kw_express/models/favorite.dart';
 
 import 'package:kw_express/models/restaurant.dart';
 import 'package:kw_express/screens/detail_resto.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:shimmer/shimmer.dart';
@@ -208,7 +210,8 @@ class _CardBuildRestaurantState extends State<CardBuildRestaurant> {
               right: 40,
               child: GestureDetector(
                 onTap: () {
-                  saveData(widget.res);
+                  Provider.of<FavoriteResto>(context, listen: false)
+                      .setFavorite(widget.res);
                   // setState(() {
                   //   if (!Provider.of<FavoriteResto>(context, listen: false)
                   //       .itemIsFavorited(widget.res))

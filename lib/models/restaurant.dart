@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class Restaurant {
   // ignore: non_constant_identifier_names
   String id_resto;
@@ -14,6 +16,7 @@ class Restaurant {
   String? service;
   // ignore: non_constant_identifier_names
   String? num_tel;
+  bool isFavorite;
   Restaurant({
     // ignore: non_constant_identifier_names
     required this.id_resto,
@@ -30,6 +33,7 @@ class Restaurant {
     required this.service,
     // ignore: non_constant_identifier_names
     required this.num_tel,
+    this.isFavorite = false,
   });
   factory Restaurant.fromJson(Map<String, dynamic> json) {
     return Restaurant(
@@ -45,18 +49,29 @@ class Restaurant {
       num_tel: json['num_tel'].toString(),
     );
   }
-  Map<String, dynamic> toJson() {
+  static Map<String, dynamic> toMap(Restaurant res) {
     return {
-      "id_resto": id_resto,
-      "nom_resto": nom_resto,
-      "map": map,
-      "adress": adress,
-      "wilaya": wilaya,
-      "dure": dure,
-      "img_cover": img_cover,
-      "img_profile": img_profile,
-      "service": service,
-      "num_tel": num_tel,
+      "id_resto": res.id_resto,
+      "nom_resto": res.nom_resto,
+      "map": res.map,
+      "adress": res.adress,
+      "wilaya": res.wilaya,
+      "dure": res.dure,
+      "img_cover": res.img_cover,
+      "img_profile": res.img_profile,
+      "service": res.service,
+      "num_tel": res.num_tel,
+      'isFavorite': res.isFavorite,
     };
   }
+
+  static String encode(List<Restaurant?>? resto) => json.encode(
+        resto!.map<Map<String, dynamic>>(
+          (res) => Restaurant.toMap(res!),
+        ),
+      );
+
+  static List<Restaurant?>? decode(String? res) => (json.decode(res!) as List)
+      .map<Restaurant?>((item) => Restaurant.fromJson(item))
+      .toList();
 }

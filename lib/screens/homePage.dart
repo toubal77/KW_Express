@@ -78,7 +78,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    getRestaurant();
+    getRestaurant().then((value) => setState(() {
+          isLoading = false;
+        }));
     getCurrentLocalisation();
     super.initState();
   }
