@@ -126,14 +126,14 @@ class _CardBuildRestaurantState extends State<CardBuildRestaurant> {
                       '${widget.res!.nom_resto}',
                       style: TextStyle(
                         fontWeight: FontWeight.w800,
-                        fontSize: 18.0,
+                        fontSize: 16.0,
                       ),
                     ),
                     Text(
                       '${widget.res!.adress}',
                       style: TextStyle(
                         fontWeight: FontWeight.w400,
-                        fontSize: 15.0,
+                        fontSize: 14.0,
                         color: Colors.grey,
                       ),
                     ),

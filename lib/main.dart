@@ -11,7 +11,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  var numTel = prefs.getString('token');
+  var numTel = prefs.getString('numTel');
   runApp(MyApp(numTel));
 }
 

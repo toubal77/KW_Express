@@ -13,7 +13,20 @@ class _AuthScreenState extends State<AuthScreen> {
     'Meilleur Livraison en Algerie',
     'Satisfactions garantie',
   ];
+  final _formKey = GlobalKey<FormState>();
   TextEditingController _numController = new TextEditingController();
+  _submitForm() {
+    FocusScope.of(context).unfocus();
+    _formKey.currentState!.save();
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+            builder: (builder) => OTPverify(_numController.text.trim())),
+        (route) => false);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,48 +47,52 @@ class _AuthScreenState extends State<AuthScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                TextFormField(
-                  key: ValueKey('NumberPhone'),
-                  autocorrect: false,
-                  textCapitalization: TextCapitalization.none,
-                  enableSuggestions: false,
-                  controller: _numController,
-                  decoration: new InputDecoration(
-                    hintText: "Enter your number",
-                    hintStyle: TextStyle(
+                Form(
+                  key: _formKey,
+                  child: TextFormField(
+                    key: ValueKey('NumberPhone'),
+                    autocorrect: false,
+                    textCapitalization: TextCapitalization.none,
+                    enableSuggestions: false,
+                    controller: _numController,
+                    decoration: new InputDecoration(
+                      hintText: "Enter your number",
+                      hintStyle: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                    style: TextStyle(
                       color: Colors.white,
                     ),
+                    textAlign: TextAlign.center,
+                    keyboardType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.digitsOnly
+                    ],
+                    validator: (val) {
+                      if ((val!.trim().isEmpty && val.trim().startsWith('0'))) {
+                        return 'please enter a valid phone number';
+                      }
+                      return null;
+                    },
+                    onSaved: (val) {
+                      _numController.text = val!.trim();
+                    },
                   ),
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                  textAlign: TextAlign.center,
-                  keyboardType: TextInputType.number,
-                  inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
-                  ],
-                  validator: (val) {
-                    if ((val!.trim().isEmpty && val.trim().length == 10)) {
-                      return 'please enter a valid phone number';
-                    }
-                    return null;
-                  },
-                  onSaved: (val) {
-                    _numController.text = val!.trim();
-                  },
                 ),
                 SizedBox(
                   height: 20.0,
                 ),
                 TextButton(
                   onPressed: () {
+                    _submitForm();
                     // verifyPhoneNumber(_numController.text, context);
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                            builder: (builder) =>
-                                OTPverify(_numController.text.trim())),
-                        (route) => false);
+                    // Navigator.pushAndRemoveUntil(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (builder) =>
+                    //             OTPverify(_numController.text.trim())),
+                    //     (route) => false);
                   },
                   child: Container(
                     width: 120,
