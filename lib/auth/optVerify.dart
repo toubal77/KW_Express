@@ -1,17 +1,19 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kw_express/home_widget.dart';
 
 class OTPverify extends StatefulWidget {
-  // final String? verificationId;
-  // OTPverify(this.verificationId);
+  final numPhone;
+  OTPverify(this.numPhone);
   @override
   _OTPverifyState createState() => _OTPverifyState();
 }
 
 class _OTPverifyState extends State<OTPverify> {
   TextEditingController _codeController = new TextEditingController();
-
+  // ignore: unused_field
+  late String _verificationCode;
   // void showSnackBar(BuildContext context, String text) {
   //   final snackBar = SnackBar(content: Text(text));
   //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -36,6 +38,49 @@ class _OTPverifyState extends State<OTPverify> {
   //     showSnackBar(context, e.toString());
   //   }
   // }
+  @override
+  void initState() {
+    super.initState();
+    _verifyPhone();
+  }
+
+  void showSnackBar(BuildContext ctx, String text) {
+    final snackBar = SnackBar(content: Text(text));
+    ScaffoldMessenger.of(ctx).showSnackBar(snackBar);
+  }
+
+  _verifyPhone() async {
+    await FirebaseAuth.instance.verifyPhoneNumber(
+      phoneNumber: '+213${widget.numPhone}',
+      verificationCompleted: (PhoneAuthCredential credential) async {
+        await FirebaseAuth.instance
+            .signInWithCredential(credential)
+            .then((value) async {
+          showSnackBar(context, "Verification Completed");
+          if (value.user != null) {
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => HomeWidget()),
+                (route) => false);
+          }
+        });
+      },
+      verificationFailed: (FirebaseAuthException e) {
+        print(e.message);
+      },
+      codeSent: (String verificationID, [int? forceResnedingtoken]) {
+        setState(() {
+          _verificationCode = verificationID;
+        });
+        showSnackBar(context, "Verification Code sent on the phone number");
+      },
+      codeAutoRetrievalTimeout: (String verificationID) {
+        setState(() {
+          _verificationCode = verificationID;
+        });
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,13 +135,30 @@ class _OTPverifyState extends State<OTPverify> {
                   height: 20.0,
                 ),
                 TextButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    try {
+                      await FirebaseAuth.instance
+                          .signInWithCredential(PhoneAuthProvider.credential(
+                              verificationId: _verificationCode,
+                              smsCode: _codeController.text.trim()))
+                          .then((value) async {
+                        if (value.user != null) {
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HomeWidget()),
+                              (route) => false);
+                        }
+                      });
+                    } catch (e) {
+                      showSnackBar(context, e.toString());
+                    }
                     // signInwithPhoneNumber(
                     //     widget.verificationId, _codeController.text, context);
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(builder: (builder) => HomeWidget()),
-                        (route) => false);
+                    // Navigator.pushAndRemoveUntil(
+                    //     context,
+                    //     MaterialPageRoute(builder: (builder) => HomeWidget()),
+                    //     (route) => false);
                   },
                   child: Container(
                     width: 120,

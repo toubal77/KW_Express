@@ -1,33 +1,41 @@
 {
   "project_info": {
-    "project_number": "412091017569",
-    "project_id": "kwexpress-18185",
-    "storage_bucket": "kwexpress-18185.appspot.com"
+    "project_number": "1062611243099",
+    "project_id": "kw-express-efc6f",
+    "storage_bucket": "kw-express-efc6f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:412091017569:android:81c3175b16ec95cfc93d20",
+        "mobilesdk_app_id": "1:1062611243099:android:7a63950fd07092ab08af7e",
         "android_client_info": {
           "package_name": "com.example.kw_express"
         }
       },
       "oauth_client": [
         {
-          "client_id": "412091017569-favm64levvm7lik99dhrkdpa280fnn83.apps.googleusercontent.com",
+          "client_id": "1062611243099-5ojikdsidcgf25k9q0acfpr266ade2nb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.kw_express",
+            "certificate_hash": "0662432023f8d95ac0b6f3bc208eccc1ed365074"
+          }
+        },
+        {
+          "client_id": "1062611243099-96mj2qoh33341cftronesf0pjhl0lsu6.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCHIRYT2yRghE596XnSK-Ox9Flc2h5FjdE"
+          "current_key": "AIzaSyA8wcytQ9X9IByQCcx34hCzaq3royG_5bo"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "412091017569-favm64levvm7lik99dhrkdpa280fnn83.apps.googleusercontent.com",
+              "client_id": "1062611243099-96mj2qoh33341cftronesf0pjhl0lsu6.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

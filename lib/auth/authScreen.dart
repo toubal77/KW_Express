@@ -118,7 +118,9 @@ class _AuthScreenState extends State<AuthScreen> {
                     // verifyPhoneNumber(_numController.text, context);
                     Navigator.pushAndRemoveUntil(
                         context,
-                        MaterialPageRoute(builder: (builder) => OTPverify()),
+                        MaterialPageRoute(
+                            builder: (builder) =>
+                                OTPverify(_numController.text.trim())),
                         (route) => false);
                   },
                   child: Container(
