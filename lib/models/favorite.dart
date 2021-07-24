@@ -4,11 +4,6 @@ import 'package:kw_express/models/restaurant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FavoriteResto with ChangeNotifier {
-  // Map<String, Restaurant?> _items = {};
-  // Map<String, Restaurant?> get items {
-  //   return {..._items};
-  // }
-
   setFavorite(Restaurant? data) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     //get string favorites
@@ -29,7 +24,6 @@ class FavoriteResto with ChangeNotifier {
       img_profile: data.img_profile,
       service: data.service,
       num_tel: data.num_tel,
-      isFavorite: !data.isFavorite,
     );
 
     var resto =

@@ -16,7 +16,7 @@ class _FavoriteRestoState extends State<FavoriteResto> {
 
     String? favorites = prefs.getString('favorite');
     List<Restaurant?>? favo = Restaurant.decode(favorites);
-
+    favo!.forEach((element) {});
     _list = favo;
   }
 

@@ -210,8 +210,10 @@ class _CardBuildRestaurantState extends State<CardBuildRestaurant> {
               right: 40,
               child: GestureDetector(
                 onTap: () {
-                  Provider.of<FavoriteResto>(context, listen: false)
-                      .setFavorite(widget.res);
+                  setState(() {
+                    Provider.of<FavoriteResto>(context, listen: false)
+                        .setFavorite(widget.res);
+                  });
                 },
                 child: Container(
                   decoration: BoxDecoration(

@@ -61,7 +61,6 @@ class Restaurant {
       "img_profile": res.img_profile,
       "service": res.service,
       "num_tel": res.num_tel,
-      'isFavorite': !res.isFavorite,
     };
   }
 
