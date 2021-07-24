@@ -14,23 +14,20 @@ class _FavoriteRestoState extends State<FavoriteResto> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     //get string favorites
 
-    final String? favorites = prefs.getString('favorite');
-    final List<Restaurant?>? favo = Restaurant.decode(favorites);
+    String? favorites = prefs.getString('favorite');
+    List<Restaurant?>? favo = Restaurant.decode(favorites);
 
     _list = favo;
-
-    print(' first resto ' + favo.toString());
   }
 
   @override
   void initState() {
     getFavorite();
+
     super.initState();
   }
 
   Widget build(BuildContext context) {
-    // final resto = Provider.of<FavoriteResto>(context);
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -45,28 +42,15 @@ class _FavoriteRestoState extends State<FavoriteResto> {
         centerTitle: true,
         elevation: 10.0,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: ListView.builder(
-              itemCount: _list!.length,
-              itemBuilder: (context, index) {
-                return Expanded(
-                  child: ListView.builder(
-                    itemCount: _list!.length,
-                    itemBuilder: (context, index) {
-                      return CardBuildRestaurant(
-                        res: _list![index],
-                        isLoading: false,
-                      );
-                    },
-                  ),
-                );
-              },
-            ),
-          ),
-        ],
+      body: ListView.builder(
+        shrinkWrap: true,
+        itemCount: _list!.length,
+        itemBuilder: (context, index) {
+          return CardBuildRestaurant(
+            res: _list![index],
+            isLoading: false,
+          );
+        },
       ),
     );
   }

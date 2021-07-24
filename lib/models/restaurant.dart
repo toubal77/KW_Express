@@ -61,15 +61,19 @@ class Restaurant {
       "img_profile": res.img_profile,
       "service": res.service,
       "num_tel": res.num_tel,
-      'isFavorite': res.isFavorite,
+      'isFavorite': !res.isFavorite,
     };
   }
 
-  static String encode(List<Restaurant?>? resto) => json.encode(
-        resto!.map<Map<String, dynamic>>(
-          (res) => Restaurant.toMap(res!),
-        ),
-      );
+  static String encode(List<Restaurant?>? resto) => json
+      .encode(
+        resto!
+            .map(
+              (res) => Restaurant.toMap(res!),
+            )
+            .toList(),
+      )
+      .toString();
 
   static List<Restaurant?>? decode(String? res) => (json.decode(res!) as List)
       .map<Restaurant?>((item) => Restaurant.fromJson(item))

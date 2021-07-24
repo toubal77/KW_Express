@@ -12,14 +12,12 @@ class FavoriteResto with ChangeNotifier {
   setFavorite(Restaurant? data) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     //get string favorites
-
+    prefs.clear();
     final String? favorites = prefs.getString('favorite');
     List<Restaurant?>? favo = [];
     if (favorites != null) {
       favo = Restaurant.decode(favorites);
-      print('gf dbfd' + favo.toString());
     }
-    print('ujdfgth ' + favo.toString());
     var res = Restaurant(
       id_resto: data!.id_resto,
       nom_resto: data.nom_resto,
@@ -31,10 +29,16 @@ class FavoriteResto with ChangeNotifier {
       img_profile: data.img_profile,
       service: data.service,
       num_tel: data.num_tel,
-      isFavorite: true,
+      isFavorite: !data.isFavorite,
     );
-    favo!.add(res);
-    print('uihdeug  ' + favo.toString());
+
+    if (favo!.contains(res)) {
+      favo.add(res);
+      print('resto add to list');
+    } else {
+      favo.remove(res);
+      print('resto remove from list');
+    }
     // set String favorites
     final String encodeData = Restaurant.encode(favo);
     await prefs.setString('favorite', encodeData).then((value) {
@@ -50,43 +54,4 @@ class FavoriteResto with ChangeNotifier {
     final List<Restaurant?>? favo = Restaurant.decode(favorites!);
     return favo;
   }
-
-  // void addItem(Restaurant? data, String title) {
-  //   if (_items.containsKey(title)) {
-  //     _items.remove(title);
-  //   } else {
-  //     _items.putIfAbsent(
-  //       title,
-  //       () => Restaurant(
-  //         id_resto: data!.id_resto,
-  //         nom_resto: data.nom_resto,
-  //         map: data.map,
-  //         adress: data.adress,
-  //         wilaya: data.wilaya,
-  //         dure: data.dure,
-  //         img_cover: data.img_cover,
-  //         img_profile: data.img_profile,
-  //         service: data.service,
-  //         num_tel: data.num_tel,
-  //       ),
-  //     );
-  //     print('item added to favorites list');
-  //     notifyListeners();
-  //   }
-  // }
-
-  // void removeItem(Restaurant? data) {
-  //   _items.remove(data);
-  //   notifyListeners();
-
-  //   print('item removeItem to favorites list');
-  // }
-
-  // bool itemIsFavorited(String? data) {
-  //   if (_items.containsKey(data)) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
 }
