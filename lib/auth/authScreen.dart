@@ -15,52 +15,6 @@ class _AuthScreenState extends State<AuthScreen> {
   ];
   TextEditingController _numController = new TextEditingController();
 
-  // String? _verificationId;
-
-  // Future<void> verifyPhoneNumber(
-  //     String phoneNumber, BuildContext context) async {
-  //   PhoneVerificationCompleted verificationCompleted =
-  //       (PhoneAuthCredential phoneAuthCredential) async {
-  //     showSnackBar(context, "Verification Completed");
-  //   };
-  //   PhoneVerificationFailed verificationFailed =
-  //       (FirebaseAuthException exception) {
-  //     showSnackBar(context, exception.toString());
-  //   };
-  //   void Function(String verificationID, [int? forceResnedingtoken]) codeSent =
-  //       (String verificationID, [int? forceResnedingtoken]) {
-  //     _verificationId = verificationID;
-  //     showSnackBar(context, "Verification Code sent on the phone number");
-  //   };
-
-  //   PhoneCodeAutoRetrievalTimeout codeAutoRetrievalTimeout =
-  //       (String verificationID) {
-  //     showSnackBar(context, "Time out");
-  //   };
-  //   try {
-  //     await FirebaseAuth.instance.verifyPhoneNumber(
-  //       timeout: Duration(seconds: 60),
-  //       phoneNumber: phoneNumber,
-  //       verificationCompleted: verificationCompleted,
-  //       verificationFailed: verificationFailed,
-  //       codeSent: codeSent,
-  //       codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
-  //     );
-
-  //     Navigator.pushAndRemoveUntil(
-  //         context,
-  //         MaterialPageRoute(builder: (builder) => OTPverify(_verificationId)),
-  //         (route) => false);
-  //   } catch (e) {
-  //     showSnackBar(context, e.toString());
-  //   }
-  // }
-
-  // void showSnackBar(BuildContext ctx, String text) {
-  //   final snackBar = SnackBar(content: Text(text));
-  //   ScaffoldMessenger.of(ctx).showSnackBar(snackBar);
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

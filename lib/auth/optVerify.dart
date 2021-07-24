@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kw_express/home_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OTPverify extends StatefulWidget {
   final numPhone;
@@ -12,32 +13,9 @@ class OTPverify extends StatefulWidget {
 
 class _OTPverifyState extends State<OTPverify> {
   TextEditingController _codeController = new TextEditingController();
-  // ignore: unused_field
+
   late String _verificationCode;
-  // void showSnackBar(BuildContext context, String text) {
-  //   final snackBar = SnackBar(content: Text(text));
-  //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  // }
 
-  // Future<void> signInwithPhoneNumber(
-  //     String? verificationId, String? smsCode, BuildContext context) async {
-  //   try {
-  //     AuthCredential credential = PhoneAuthProvider.credential(
-  //         verificationId: verificationId!, smsCode: smsCode!);
-
-  //     UserCredential userCredential =
-  //         await FirebaseAuth.instance.signInWithCredential(credential);
-
-  //     Navigator.pushAndRemoveUntil(
-  //         context,
-  //         MaterialPageRoute(builder: (builder) => HomeWidget()),
-  //         (route) => false);
-
-  //     showSnackBar(context, "logged In");
-  //   } catch (e) {
-  //     showSnackBar(context, e.toString());
-  //   }
-  // }
   @override
   void initState() {
     super.initState();
@@ -58,6 +36,8 @@ class _OTPverifyState extends State<OTPverify> {
             .then((value) async {
           showSnackBar(context, "Verification Completed");
           if (value.user != null) {
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            prefs.setString('numTel', '0${widget.numPhone}');
             Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => HomeWidget()),
