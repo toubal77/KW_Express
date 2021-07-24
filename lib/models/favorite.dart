@@ -12,7 +12,7 @@ class FavoriteResto with ChangeNotifier {
   setFavorite(Restaurant? data) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     //get string favorites
-    prefs.clear();
+
     final String? favorites = prefs.getString('favorite');
     List<Restaurant?>? favo = [];
     if (favorites != null) {
@@ -32,11 +32,14 @@ class FavoriteResto with ChangeNotifier {
       isFavorite: !data.isFavorite,
     );
 
-    if (favo!.contains(res)) {
+    var resto =
+        favo!.indexWhere((element) => element!.nom_resto == res.nom_resto);
+    print('uihoehgr ' + resto.toString());
+    if (resto == -1) {
       favo.add(res);
       print('resto add to list');
     } else {
-      favo.remove(res);
+      favo.removeAt(resto);
       print('resto remove from list');
     }
     // set String favorites
